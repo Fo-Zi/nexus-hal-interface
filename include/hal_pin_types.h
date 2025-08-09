@@ -23,9 +23,8 @@ typedef enum {
 } hal_pin_result_t;
 
 typedef void (*hal_pin_callback_t)(void * ctxt);
-typedef struct hal_pin_config_t hal_pin_config_t;
-
-typedef struct hal_pin_context hal_pin_context_t;
+typedef hal_pin_config hal_pin_config_t;
+typedef hal_pin_context hal_pin_context_t;
 
 typedef enum hal_pin_state_t{
     HAL_PIN_LOW = 0,

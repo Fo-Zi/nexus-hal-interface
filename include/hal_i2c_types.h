@@ -13,11 +13,8 @@
 
 #include "hal_common.h"
 
-// struct hal_i2c_config;
-typedef struct hal_i2c_config hal_i2c_config_t;
-
-// struct hal_i2c_context;
-typedef struct hal_i2c_context hal_i2c_context_t;
+struct hal_i2c_config;
+struct hal_i2c_context;
 
 typedef enum {
     HAL_I2C_OK = 0,                /**< Operation completed successfully. */

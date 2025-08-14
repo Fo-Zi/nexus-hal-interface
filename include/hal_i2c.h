@@ -15,27 +15,27 @@
 #include "hal_common.h"
 #include "hal_i2c_types.h"
 
-hal_i2c_result_t hal_i2c_init(hal_i2c_context_t * ctxt);
-hal_i2c_result_t hal_i2c_deinit(hal_i2c_context_t *i2c_ctx);
-hal_i2c_result_t hal_i2c_set_config(hal_i2c_context_t *i2c_ctx, hal_i2c_config_t *config);
-hal_i2c_result_t hal_i2c_get_config(hal_i2c_context_t *i2c_ctx, hal_i2c_config_t *config);
+hal_i2c_result_t hal_i2c_init(struct hal_i2c_context * ctxt);
+hal_i2c_result_t hal_i2c_deinit(struct hal_i2c_context *i2c_ctx);
+hal_i2c_result_t hal_i2c_set_config(struct hal_i2c_context *i2c_ctx, struct hal_i2c_config *config);
+hal_i2c_result_t hal_i2c_get_config(struct hal_i2c_context *i2c_ctx, struct hal_i2c_config *config);
 
 hal_i2c_result_t hal_i2c_write(
-    hal_i2c_context_t *i2c_ctx,
+    struct hal_i2c_context *i2c_ctx,
     uint8_t dev_address,
     const uint8_t *data, size_t len,
     hal_timeout_ms timeout
 );
 
 hal_i2c_result_t hal_i2c_read(
-    hal_i2c_context_t *i2c_ctx,
+    struct hal_i2c_context *i2c_ctx,
     uint8_t dev_address,
     uint8_t *data, size_t len,
     hal_timeout_ms timeout
 );
 
 hal_i2c_result_t hal_i2c_write_read_reg(
-    hal_i2c_context_t *i2c_ctx,
+    struct hal_i2c_context *i2c_ctx,
     uint8_t dev_address,
     const uint8_t *reg_address, size_t reg_len,
     uint8_t *data, size_t data_len,

@@ -72,8 +72,7 @@ typedef struct {
 } hal_uart_basic_config_t;
 
 struct hal_uart_context;
-typedef struct hal_uart_context hal_uart_context_t;
-
+struct hal_uart_impl_specific_config;
 
 // Buffering configuration - for implementations with buffered ops only
 #ifdef HAL_UART_BUFFERED
@@ -114,8 +113,7 @@ typedef struct {
         hal_uart_buffered_config_t buffered_config;
     #endif
 
-    void * impl_specific_config;            /**< Pointer to an opaque structure for implementation-specific configuration.
-                                                     The specific type of this pointer will depend on the HAL implementation. */
+    struct hal_uart_impl_specific_config * impl_specific_config;
 
 } hal_uart_config_t;
 

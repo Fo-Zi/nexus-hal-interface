@@ -16,7 +16,7 @@
 #include "hal_common.h"
 #include "hal_i2c_types.h"
 
-hal_i2c_result_t hal_i2c_perform_transfer(
+hal_i2c_result_t hal_i2c_master_perform_transfer(
     struct hal_i2c_context * ctx,
     hal_i2c_transfer_op_t *ops,
     size_t num_ops,

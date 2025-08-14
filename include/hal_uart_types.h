@@ -15,6 +15,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+typedef uint8_t hal_uart_id;
+
 /**
  * @brief Enumeration for UART operation status codes.
  * These codes indicate the success or failure of a UART operation.
@@ -62,17 +64,19 @@ typedef enum {
 
 /**
  * @brief Structure for common UART configuration parameters.
- * Defines standard configuration settings applicable to most UART implementations.
+ * Defines standard configuration settings applicable to most(if not all) UART implementations.
  */
-typedef struct {
+struct hal_uart_basic_config{
     uint32_t baudrate;              /**< The baud rate for communication (bits per second). */
     hal_uart_parity_t parity;       /**< The parity setting (none, even, or odd). */
     hal_uart_stop_bits_t stop_bits; /**< The number of stop bits (e.g., 1 or 2). */
     hal_uart_data_bits_t data_bits; /**< The number of data bits (e.g., 7 or 8). */
-} hal_uart_basic_config_t;
+} ;
 
-struct hal_uart_context;
-struct hal_uart_impl_specific_config;
+struct hal_uart_context{
+    hal_uart_id uart_id; 
+    struct hal_uart_impl_ctx * impl_ctx;
+};
 
 // Buffering configuration - for implementations with buffered ops only
 #ifdef HAL_UART_BUFFERED
@@ -101,9 +105,9 @@ struct hal_uart_impl_specific_config;
  * @brief Structure for complete UART configuration.
  * Combines common configuration parameters with a pointer to implementation-specific settings.
  */
-typedef struct {
+struct hal_uart_config{
 
-    hal_uart_basic_config_t basic_config;    /**< Basic UART configuration parameters. */
+    struct hal_uart_basic_config basic_config;    /**< Basic UART configuration parameters. */
 
     #ifdef HAL_UART_ASYNC
         hal_uart_async_config_t async_config;
@@ -113,9 +117,9 @@ typedef struct {
         hal_uart_buffered_config_t buffered_config;
     #endif
 
-    struct hal_uart_impl_specific_config * impl_specific_config;
+    struct hal_uart_impl_config * impl_config;
 
-} hal_uart_config_t;
+} ;
 
 
 #endif /* HAL_UART_TYPES_H */

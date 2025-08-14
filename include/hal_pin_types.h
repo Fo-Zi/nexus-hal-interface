@@ -22,14 +22,38 @@ typedef enum {
     HAL_PIN_ERR_OTHER                   /**< An unspecified error occurred. */
 } hal_pin_result_t;
 
-typedef void (*hal_pin_callback_t)(void * ctxt);
-
-struct hal_pin_config;
-struct hal_pin_context;
-
 typedef enum hal_pin_state_t{
     HAL_PIN_LOW = 0,
     HAL_PIN_HIGH
 }hal_pin_state_t;
+
+typedef enum {
+    HAL_PIN_DIR_INPUT,
+    HAL_PIN_DIR_OUTPUT,
+    HAL_PIN_DIR_TOTAL_NUM,
+} hal_pin_dir_t;
+
+typedef enum {
+    HAL_PIN_PMODE_NONE,
+    HAL_PIN_PMODE_PULL_UP,
+    HAL_PIN_PMODE_PULL_DOWN,
+    HAL_PIN_PMODE_PULL_UP_AND_DOWN,
+    HAL_PIN_PMODE_TOTAL_NUM,
+} hal_pin_pull_mode_t;
+
+typedef void (*hal_pin_callback_t)(void * ctxt);
+
+struct hal_pin_config{
+    struct hal_pin_id * pin_id;
+    hal_pin_dir_t direction;
+    hal_pin_pull_mode_t pull_mode;
+    struct hal_pin_impl_config * impl_config;
+};
+
+struct hal_pin_context{
+    struct hal_pin_id * pin_id;
+    struct hal_pin_impl_ctx * impl_ctx;
+};
+
 
 #endif

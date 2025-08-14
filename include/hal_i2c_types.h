@@ -8,13 +8,25 @@
 #ifndef HAL_I2C_TYPES_H
 #define HAL_I2C_TYPES_H
 
+#include <cstdint>
 #include <stddef.h>
 #include <stdint.h>
 
 #include "hal_common.h"
 
-struct hal_i2c_config;
-struct hal_i2c_context;
+typedef uint8_t hal_i2c_bus_id;
+typedef uint16_t hal_i2c_slave_addr;
+
+struct hal_i2c_config{
+    hal_i2c_bus_id i2c_bus_id;
+    struct hal_i2c_impl_config * impl_config; 
+};
+
+struct hal_i2c_context{
+    hal_i2c_bus_id      i2c_bus_id;
+    hal_i2c_slave_addr  i2c_slave_addr;
+    struct hal_i2c_impl_ctx * impl_ctx;
+};
 
 typedef enum {
     HAL_I2C_OK = 0,                /**< Operation completed successfully. */
@@ -27,12 +39,12 @@ typedef enum {
 } hal_i2c_result_t;
 
 typedef enum {
-    HAL_I2C_TRANSFER_MSG_WRITE        = BIT_SHIFT_LEFT(0), /**< Message is a write operation (default). */
-    HAL_I2C_TRANSFER_MSG_READ         = BIT_SHIFT_LEFT(1), /**< Message is a read operation. */
-    HAL_I2C_TRANSFER_MSG_TEN_BIT_ADDR = BIT_SHIFT_LEFT(2), /**< Use 10-bit addressing for this message. */
-    HAL_I2C_TRANSFER_MSG_NO_START     = BIT_SHIFT_LEFT(3), /**< Do not send a START condition before this message.
+    HAL_I2C_TRANSFER_MSG_WRITE        = 1, /**< Message is a write operation (default). */
+    HAL_I2C_TRANSFER_MSG_READ         = 1<<1, /**< Message is a read operation. */
+    HAL_I2C_TRANSFER_MSG_TEN_BIT_ADDR = 1<<2, /**< Use 10-bit addressing for this message. */
+    HAL_I2C_TRANSFER_MSG_NO_START     = 1<<3, /**< Do not send a START condition before this message.
                                                                 *   Useful for subsequent messages in a combined transaction (e.g., after a repeated start). */
-    HAL_I2C_TRANSFER_MSG_NO_STOP      = BIT_SHIFT_LEFT(4), /**< Do not send a STOP condition after this message.
+    HAL_I2C_TRANSFER_MSG_NO_STOP      = 1<<4, /**< Do not send a STOP condition after this message.
                                                                 *   Essential for creating repeated START conditions before the next message. */
 } hal_i2c_transfer_bit_flags_t;
 

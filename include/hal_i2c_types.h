@@ -11,9 +11,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "hal_macro_helpers.h"
+#include "hal_common.h"
 
+// struct hal_i2c_config;
 typedef struct hal_i2c_config hal_i2c_config_t;
+
+// struct hal_i2c_context;
 typedef struct hal_i2c_context hal_i2c_context_t;
 
 typedef enum {

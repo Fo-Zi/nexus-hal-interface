@@ -71,6 +71,7 @@ typedef struct {
     hal_uart_data_bits_t data_bits; /**< The number of data bits (e.g., 7 or 8). */
 } hal_uart_basic_config_t;
 
+struct hal_uart_context;
 typedef struct hal_uart_context hal_uart_context_t;
 
 

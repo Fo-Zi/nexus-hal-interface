@@ -19,13 +19,14 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "hal_common.h"
 #include "hal_uart_types.h"
 
 hal_uart_result_t hal_uart_init(hal_uart_context_t * uart_ctxt);
 hal_uart_result_t hal_uart_deinit(hal_uart_context_t * uart_ctxt);
 hal_uart_result_t hal_uart_set_config(hal_uart_context_t * uart_ctxt, hal_uart_config_t *cfg);
 hal_uart_result_t hal_uart_get_config(hal_uart_context_t * uart_ctxt, hal_uart_config_t *cfg);
-hal_uart_result_t hal_uart_write(hal_uart_context_t * uart_ctxt, const uint8_t *data, size_t len);
-hal_uart_result_t hal_uart_read(hal_uart_context_t * uart_ctxt, uint8_t *data, size_t len);
+hal_uart_result_t hal_uart_write(hal_uart_context_t * uart_ctxt, const uint8_t *data, size_t len,hal_timeout_ms timeout);
+hal_uart_result_t hal_uart_read(hal_uart_context_t * uart_ctxt, uint8_t *data, size_t len,hal_timeout_ms timeout);
 
 #endif

@@ -8,7 +8,6 @@
 #ifndef HAL_I2C_TYPES_H
 #define HAL_I2C_TYPES_H
 
-#include <cstdint>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -46,6 +45,7 @@ typedef enum {
                                                                 *   Useful for subsequent messages in a combined transaction (e.g., after a repeated start). */
     HAL_I2C_TRANSFER_MSG_NO_STOP      = 1<<4, /**< Do not send a STOP condition after this message.
                                                                 *   Essential for creating repeated START conditions before the next message. */
+    HAL_I2C_TRANSFER_MSG_NO_ADDR      = 1<<5  /**< Do not write the address first in this op */
 } hal_i2c_transfer_bit_flags_t;
 
 /**

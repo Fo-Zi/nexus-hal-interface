@@ -24,8 +24,8 @@
 
 hal_uart_result_t hal_uart_init(struct hal_uart_context * uart_ctxt);
 hal_uart_result_t hal_uart_deinit(struct hal_uart_context * uart_ctxt);
-hal_uart_result_t hal_uart_set_config(struct hal_uart_context * uart_ctxt, struct hal_uart_config_t *cfg);
-hal_uart_result_t hal_uart_get_config(struct hal_uart_context * uart_ctxt, struct hal_uart_config_t *cfg);
+hal_uart_result_t hal_uart_set_config(struct hal_uart_context * uart_ctxt, struct hal_uart_config *cfg);
+hal_uart_result_t hal_uart_get_config(struct hal_uart_context * uart_ctxt, struct hal_uart_config *cfg);
 hal_uart_result_t hal_uart_write(struct hal_uart_context * uart_ctxt, const uint8_t *data, size_t len,hal_timeout_ms timeout);
 hal_uart_result_t hal_uart_read(struct hal_uart_context * uart_ctxt, uint8_t *data, size_t len,hal_timeout_ms timeout);
 

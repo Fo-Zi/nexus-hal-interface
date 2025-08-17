@@ -1,13 +1,20 @@
 /**
- * @file hal_i2c.h
- * @brief Hardware Abstraction Layer for I2C communication.
+ * @file hal_i2c_master.h
+ * @brief Hardware Abstraction Layer for synchronous I2C Master mode communication.
  *
- * This file defines the API for interacting with an I2C bus.
+ * This file defines the API for interacting with an I2C bus in master mode.
  * It provides functions for initialization, configuration,
- * reading, writing, and combined write-read operations.
+ * reading, writing, and combined operations using synchronous blocking transfers.
+ *
+ * Synchronous mode provides blocking operations with automatic transfer optimization.
+ * The HAL automatically selects the best transfer method (CPU vs DMA) based on
+ * transfer size and hardware capabilities - applications don't need to know.
+ * All operations block until completion or timeout.
+ *
+ * @note For non-blocking asynchronous operations, see hal_i2c_master_async.h
  */
-#ifndef HAL_I2C_H
-#define HAL_I2C_H
+#ifndef HAL_I2C_MASTER_H
+#define HAL_I2C_MASTER_H
 
 #include <stdint.h>
 #include <stddef.h>

@@ -21,5 +21,6 @@ hal_pin_result_t hal_pin_get_config(struct hal_pin_context * pin_ctxt, struct ha
 hal_pin_result_t hal_pin_set_state(struct hal_pin_context * pin_ctxt, hal_pin_state_t value);
 hal_pin_result_t hal_pin_get_state(struct hal_pin_context * pin_ctxt, hal_pin_state_t *value);
 hal_pin_result_t hal_pin_set_callback( struct hal_pin_context * pin_ctxt, hal_pin_callback_t callback );
+hal_pin_result_t hal_pin_set_direction(struct hal_pin_context * pin_ctxt, hal_pin_dir_t direction, hal_pin_pull_mode_t pull_mode);
 
 #endif

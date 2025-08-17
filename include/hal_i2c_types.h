@@ -21,10 +21,41 @@ struct hal_i2c_config{
     struct hal_i2c_impl_config * impl_config; 
 };
 
+typedef enum {
+    HAL_I2C_OP_MODE_SYNC_ONLY,        /**< Synchronous blocking operations only. */
+    HAL_I2C_OP_MODE_SYNC_AND_ASYNC    /**< Both synchronous and asynchronous operations with DMA support. */
+} hal_i2c_operation_mode_t;
+
+/**
+ * @brief Configuration for asynchronous operations with DMA support
+ */
+struct hal_i2c_async_dma_config{
+    struct hal_i2c_config basic_config;      /**< Basic I2C configuration */
+    uint16_t max_transfer_sz;                 /**< Maximum transfer size in bytes for DMA */
+    uint8_t queue_size;                       /**< Transaction queue size for async operations */
+};
+
+/**
+ * @brief Base I2C context - always present, minimal footprint
+ */
 struct hal_i2c_context{
     hal_i2c_bus_id      i2c_bus_id;
     hal_i2c_slave_addr  i2c_slave_addr;
+    hal_i2c_operation_mode_t current_mode;
+    
     struct hal_i2c_impl_ctx * impl_ctx;
+
+    // Conditional extensions - only included if support is compiled in
+#if defined(HAL_I2C_ASYNC_DMA_SUPPORT)
+    struct hal_i2c_async_dma_extension {
+        uint16_t max_transfer_sz;
+        uint8_t queue_size;
+        uint8_t tx_operations_queued;
+        uint8_t rx_operations_available;
+        uint32_t clock_speed_hz;
+        bool is_async_initialized;
+    } async_dma;
+#endif
 };
 
 typedef enum {

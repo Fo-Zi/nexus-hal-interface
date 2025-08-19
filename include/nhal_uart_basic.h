@@ -24,14 +24,14 @@
 /**
  * @brief Initialize UART context in basic mode
  * @param uart_ctxt Pointer to UART context structure
- * @return NHAL_UART_OK on success, error code otherwise
+ * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_init(struct nhal_uart_context * uart_ctxt);
 
 /**
  * @brief Deinitialize UART context
  * @param uart_ctxt Pointer to UART context structure
- * @return NHAL_UART_OK on success, error code otherwise
+ * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_deinit(struct nhal_uart_context * uart_ctxt);
 
@@ -39,7 +39,7 @@ nhal_result_t nhal_uart_deinit(struct nhal_uart_context * uart_ctxt);
  * @brief Set UART configuration
  * @param uart_ctxt Pointer to UART context structure
  * @param cfg Pointer to configuration structure
- * @return NHAL_UART_OK on success, error code otherwise
+ * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_set_config(struct nhal_uart_context * uart_ctxt, struct nhal_uart_config *cfg);
 
@@ -47,7 +47,7 @@ nhal_result_t nhal_uart_set_config(struct nhal_uart_context * uart_ctxt, struct 
  * @brief Get current UART configuration
  * @param uart_ctxt Pointer to UART context structure
  * @param cfg Pointer to configuration structure to fill
- * @return NHAL_UART_OK on success, error code otherwise
+ * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_get_config(struct nhal_uart_context * uart_ctxt, struct nhal_uart_config *cfg);
 
@@ -57,7 +57,7 @@ nhal_result_t nhal_uart_get_config(struct nhal_uart_context * uart_ctxt, struct 
  * @param data Pointer to data to transmit
  * @param len Number of bytes to transmit
  * @param timeout Timeout in milliseconds
- * @return NHAL_UART_OK on success, error code otherwise
+ * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_write(struct nhal_uart_context * uart_ctxt, const uint8_t *data, size_t len, nhal_timeout_ms timeout);
 
@@ -67,7 +67,7 @@ nhal_result_t nhal_uart_write(struct nhal_uart_context * uart_ctxt, const uint8_
  * @param data Pointer to buffer for received data
  * @param len Number of bytes to read
  * @param timeout Timeout in milliseconds
- * @return NHAL_UART_OK on success, error code otherwise
+ * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_read(struct nhal_uart_context * uart_ctxt, uint8_t *data, size_t len, nhal_timeout_ms timeout);
 

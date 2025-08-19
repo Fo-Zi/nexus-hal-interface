@@ -5,28 +5,54 @@
 
 typedef uint16_t nhal_timeout_ms;
 
+/**
+ * @brief Unified HAL result type for all peripheral operations
+ */
 typedef enum {
-    NHAL_OK = 0,
-    NHAL_ERR_TIMEOUT,
-    NHAL_ERR_INVALID_ARG,
-    NHAL_ERR_INVALID_CONFIG,
-    NHAL_ERR_INVALID_STATE,
-    NHAL_ERR_NOT_FOUND,
-    NHAL_ERR_NOT_SUPPORTED,
-    NHAL_ERR_NOT_INITIALIZED,
-    NHAL_ERR_NOT_CONFIGURED,
-    NHAL_ERR_RESOURCE_BUSY,
-    NHAL_ERR_RESOURCE_UNAVAILABLE,
-    NHAL_ERR_COMMUNICATION,
-    NHAL_ERR_HW_FAILURE,
-    NHAL_ERR_NO_MEMORY,
-    NHAL_ERR_BUFFER_OVERFLOW,
-    NHAL_ERR_OTHER
+    NHAL_OK = 0,                         /**< Operation completed successfully. */
+    
+    // Common argument/validation errors  
+    NHAL_ERR_INVALID_ARG,                /**< Invalid arguments provided. */
+    NHAL_ERR_INVALID_CONFIG,             /**< Invalid configuration. */
+    NHAL_ERR_NOT_INITIALIZED,            /**< Peripheral not initialized. */
+    NHAL_ERR_ALREADY_INITIALIZED,        /**< Already initialized. */
+    NHAL_ERR_NOT_CONFIGURED,             /**< Peripheral not configured. */
+    
+    // State errors
+    NHAL_ERR_NOT_STARTED,                /**< Operation not started. */
+    NHAL_ERR_ALREADY_STARTED,            /**< Already started/running. */
+    NHAL_ERR_BUSY,                       /**< Resource busy/locked/unavailable. */
+    
+    // Operation errors
+    NHAL_ERR_TIMEOUT,                    /**< Operation timeout. */
+    NHAL_ERR_HW_FAILURE,                 /**< Hardware failure. */
+    NHAL_ERR_UNSUPPORTED,                /**< Feature not supported. */
+    
+    // Communication errors (generic)
+    NHAL_ERR_NO_RESPONSE,                /**< No response from target (NACK, etc.). */
+    NHAL_ERR_TRANSMISSION_ERROR,         /**< General transmission error. */
+    
+    // Buffer/resource errors
+    NHAL_ERR_BUFFER_FULL,                /**< Buffer full. */
+    NHAL_ERR_BUFFER_OVERFLOW,            /**< Buffer overflow. */
+    NHAL_ERR_OUT_OF_MEMORY,              /**< Memory allocation failed. */
+    
+    // Catch-all
+    NHAL_ERR_OTHER                       /**< Unspecified error. */
 } nhal_result_t;
 
+/**
+ * @brief Delay for specified number of microseconds
+ *
+ * @param microseconds Number of microseconds to delay
+ */
 void nhal_delay_microseconds(uint32_t microseconds);
-void nhal_delay_milliseconds(uint32_t milliseconds);
 
-nhal_result_t nhal_map_esp_err(int esp_err_code);
+/**
+ * @brief Delay for specified number of milliseconds
+ *
+ * @param milliseconds Number of milliseconds to delay
+ */
+void nhal_delay_milliseconds(uint32_t milliseconds);
 
 #endif

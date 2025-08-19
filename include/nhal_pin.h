@@ -1,5 +1,5 @@
 /**
- * @file hal_pin.h
+ * @file nhal_pin.h
  * @brief Header for the Hardware Abstraction Layer (HAL) Pin module.
  *
  * This module provides an interface for managing general-purpose I/O (GPIO) pins.

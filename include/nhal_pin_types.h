@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 
+#include "nhal_common.h"
 
 typedef enum nhal_pin_state_t{
     NHAL_PIN_LOW = 0,

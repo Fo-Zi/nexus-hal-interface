@@ -2,7 +2,28 @@
 
 ## Overview
 
-The NHAL Interface is a pure C header-only component that defines standardized hardware abstraction layer interfaces for embedded systems. This component provides no implementation - only interface definitions, types, and contracts that implementation layers must fulfill.
+The NHAL Interface is a pure C header-only component that aims to define hardware abstraction layer interfaces for embedded systems. This component provides no implementation - only interface definitions, types, and contracts that implementation layers must fulfill.
+
+## Motivation
+My motivation is centered around issues I've faced in my experience when working with Embedded Projects:
+- Many HALs are not designed to ease testability -> I'd end up creating my own shim abstraction layer for every project, just to allow me to unit-test a complex driver or other components.
+- Most HALs tie you to a specific MCU family/Framework/SDK -> Porting efforts if I want to for example use the same peripheral but in some other platform
+- Some HALs try to abstract everything, creating huge complex dependencies -> An overkill for many projects
+- HALs for RTOS and Bare metal are radically different, but **usually** the functionality most drivers need remains the same
+
+## Goals
+My main goal is simply to provide a set of interfaces **for myself**, and ease the pain points I mentioned before. That said, if someone else 
+finds it useful is most welcomed to use it, collaborate, ask for some functionality or interface not yet contemplated, etc.
+
+The goals as an interface are the following:
+- To provide a set of interfaces isolated from their actual implementation:
+  - Do you want to use your own implementation instead of some other provided by me? Go ahead!
+  - Do you want to still use drivers implemented using the interface? You can!
+- The HAL serves merely as **a contract** between drivers and the interfaces they depend on
+- To provide easy testability for higher layers
+- To be as clear as possible on separating the parts of the interface that are truly generic, from the ones that may depend on the platform you will be working with
+- If the functionality of the same peripheral may vary a lot depending on configuration (i.e.: async/DMA vs blocking), a **separate interface** will be defined exposing these.
+  Forcing a consumer to initializa DMA data when only wanting to use a simple I2C blocking operation, breaks SOLID principles. 
 
 ## Design Philosophy
 
@@ -13,12 +34,14 @@ The interface is built around the concept of "contexts" rather than direct perip
 - Platform-specific implementation details (opaque to consumers)
 
 ### State Management
-All peripherals follow a strict state lifecycle:
+All peripherals follow a the following lifecycle:
 1. **Uninitialized** → **Initialized** (via `*_init()`)
 2. **Initialized** → **Configured** (via `*_set_config()`)  
 3. **Configured** → **Operational** (ready for data operations)
 
 Operations will fail with appropriate error codes if attempted in wrong states.
+Why do I follow this pattern? Because depending on the platform, the initialization phase follows a different flow than
+the configuration step, and sometimes you may want to update peripheral configuration **at runtime**.
 
 ### Unified Error Handling
 All operations return `nhal_result_t` with standardized error categories:
@@ -27,6 +50,8 @@ All operations return `nhal_result_t` with standardized error categories:
 - **Operation errors**: `NHAL_ERR_TIMEOUT`, `NHAL_ERR_HW_FAILURE`, `NHAL_ERR_UNSUPPORTED`
 - **Communication errors**: `NHAL_ERR_NO_RESPONSE`, `NHAL_ERR_TRANSMISSION_ERROR`
 - **Resource errors**: `NHAL_ERR_BUFFER_FULL`, `NHAL_ERR_OUT_OF_MEMORY`
+
+The kind of errors the hal defines are up for debate and extension, of course.
 
 ## Supported Peripherals
 
@@ -108,4 +133,7 @@ Any implementation of these interfaces must:
 5. Handle context validation (NULL checks, state checks)
 6. Support the timeout semantics for blocking operations
 
-The interface guarantees API stability - implementations can evolve without requiring changes to application code that uses these interfaces.
+The interface will be versioned to allow drivers to depend on a fixed "snapshot" of the contract, in case of
+wanting to expand or modify it. Ideally, this HAL will be long-term stable, but since at the beggining I will
+need to experiment a lot in order to reach an API that's comfortable to use while portable, versioning will move
+fast until I reach v1.0.0.

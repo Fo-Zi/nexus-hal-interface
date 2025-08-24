@@ -37,7 +37,6 @@ typedef enum {
 } nhal_uart_data_bits_t;
 
 struct nhal_uart_config{
-    nhal_uart_bus_id uart_bus_id;
     uint32_t baudrate;              /**< The baud rate for communication (bits per second). */
     nhal_uart_parity_t parity;       /**< The parity setting (none, even, or odd). */
     nhal_uart_stop_bits_t stop_bits; /**< The number of stop bits (e.g., 1 or 2). */

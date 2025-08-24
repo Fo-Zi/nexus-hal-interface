@@ -24,7 +24,6 @@ typedef uint8_t nhal_wdt_id;
 typedef void (*nhal_wdt_callback_t)(void * ctxt);
 
 struct nhal_wdt_config {
-    nhal_wdt_id wdt_id;
     uint32_t timeout_ms;                        /**< Timeout period in milliseconds */
     struct nhal_wdt_impl_config * impl_config;  /**< Platform-specific configuration */
 };

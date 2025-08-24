@@ -17,8 +17,8 @@ typedef uint8_t nhal_i2c_bus_id;
 typedef uint16_t nhal_i2c_slave_addr;
 
 struct nhal_i2c_config{
-    nhal_i2c_bus_id i2c_bus_id;
-    struct nhal_i2c_impl_config * impl_config; 
+    uint32_t clock_speed_hz;
+    struct nhal_i2c_impl_config * impl_config;
 };
 
 typedef enum {
@@ -40,9 +40,8 @@ struct nhal_i2c_async_dma_config{
  */
 struct nhal_i2c_context{
     nhal_i2c_bus_id      i2c_bus_id;
-    nhal_i2c_slave_addr  i2c_slave_addr;
     nhal_i2c_operation_mode_t current_mode;
-    
+
     struct nhal_i2c_impl_ctx * impl_ctx;
 
     // Conditional extensions - only included if support is compiled in
@@ -52,7 +51,6 @@ struct nhal_i2c_context{
         uint8_t queue_size;
         uint8_t tx_operations_queued;
         uint8_t rx_operations_available;
-        uint32_t clock_speed_hz;
         bool is_async_initialized;
     } async_dma;
 #endif
@@ -76,7 +74,7 @@ typedef enum {
  * A full I2C transaction can consist of one or more such messages.
  */
 typedef struct {
-    uint16_t address;          /**< 7-bit or 10-bit slave address for this message segment.
+    nhal_i2c_slave_addr address;          /**< 7-bit or 10-bit slave address for this message segment.
                                     *   The high bit (0x80) is not used for 7-bit addresses here;
                                     *   it's strictly the 7-bit address (0-127). */
     uint16_t flags;            /**< Combination of #nhal_i2c_transfer_bit_flags_t for this segment. */

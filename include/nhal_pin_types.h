@@ -34,7 +34,6 @@ typedef enum {
 typedef void (*nhal_pin_callback_t)(void * ctxt);
 
 struct nhal_pin_config{
-    struct nhal_pin_id * pin_id;
     nhal_pin_dir_t direction;
     nhal_pin_pull_mode_t pull_mode;
     struct nhal_pin_impl_config * impl_config;

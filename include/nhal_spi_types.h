@@ -29,7 +29,6 @@ typedef enum {
 } nhal_spi_bit_order_t;
 
 struct nhal_spi_config{
-    nhal_spi_bus_id spi_bus_id;
     uint32_t frequency_hz;
     nhal_spi_mode_t mode;
     nhal_spi_bit_order_t bit_order;

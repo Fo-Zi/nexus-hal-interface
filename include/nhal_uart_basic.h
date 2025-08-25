@@ -23,21 +23,21 @@
 
 /**
  * @brief Initialize UART context in basic mode
- * @param uart_ctxt Pointer to UART context structure
+ * @param ctx Pointer to UART context structure
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_init(struct nhal_uart_context * ctx);
 
 /**
  * @brief Deinitialize UART context
- * @param uart_ctxt Pointer to UART context structure
+ * @param ctx Pointer to UART context structure
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_deinit(struct nhal_uart_context * ctx);
 
 /**
  * @brief Set UART configuration
- * @param uart_ctxt Pointer to UART context structure
+ * @param ctx Pointer to UART context structure
  * @param cfg Pointer to configuration structure
  * @return NHAL_OK on success, error code otherwise
  */
@@ -45,7 +45,7 @@ nhal_result_t nhal_uart_set_config(struct nhal_uart_context * ctx, struct nhal_u
 
 /**
  * @brief Get current UART configuration
- * @param uart_ctxt Pointer to UART context structure
+ * @param ctx Pointer to UART context structure
  * @param cfg Pointer to configuration structure to fill
  * @return NHAL_OK on success, error code otherwise
  */
@@ -53,7 +53,7 @@ nhal_result_t nhal_uart_get_config(struct nhal_uart_context * ctx, struct nhal_u
 
 /**
  * @brief Write data to UART (blocking)
- * @param uart_ctxt Pointer to UART context structure
+ * @param ctx Pointer to UART context structure
  * @param data Pointer to data to transmit
  * @param len Number of bytes to transmit
  * @param timeout Timeout in milliseconds
@@ -63,7 +63,7 @@ nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *dat
 
 /**
  * @brief Read data from UART (blocking)
- * @param uart_ctxt Pointer to UART context structure
+ * @param ctx Pointer to UART context structure
  * @param data Pointer to buffer for received data
  * @param len Number of bytes to read
  * @param timeout Timeout in milliseconds

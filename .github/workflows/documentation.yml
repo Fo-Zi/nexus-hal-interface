@@ -1,0 +1,55 @@
+name: Generate Documentation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install Doxygen and Graphviz
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+        
+    - name: Verify Doxygen installation
+      run: |
+        doxygen --version
+        dot -V
+        
+    - name: Configure CMake for documentation
+      run: |
+        cmake -B build -DBUILD_DOCS=ON
+        
+    - name: Generate documentation
+      run: |
+        cmake --build build --target docs
+        
+    - name: List generated files (debug)
+      run: |
+        echo "Build directory contents:"
+        ls -la build/
+        echo "Docs directory contents:"
+        find build/docs -type f -name "*.html" | head -10
+        
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build/docs/html
+        destination_dir: .
+        
+    - name: Upload documentation artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: documentation
+        path: build/docs/html/
+        retention-days: 30

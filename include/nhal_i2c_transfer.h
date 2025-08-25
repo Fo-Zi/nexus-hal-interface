@@ -16,6 +16,14 @@
 #include "nhal_common.h"
 #include "nhal_i2c_types.h"
 
+/**
+ * @brief Perform complex I2C transfer with multiple operations
+ * @param ctx Pointer to I2C context structure
+ * @param ops Array of transfer operations to perform
+ * @param num_ops Number of operations in the array
+ * @param timeout_ms Timeout in milliseconds
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_i2c_master_perform_transfer(
     struct nhal_i2c_context * ctx,
     nhal_i2c_transfer_op_t *ops,

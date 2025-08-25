@@ -32,13 +32,21 @@ jobs:
       run: |
         cmake --build build --target docs
         
-    - name: List generated files (debug)
+    - name: Verify documentation was generated
       run: |
-        echo "Build directory contents:"
-        ls -la build/
-        echo "Generated docs directory contents:"
-        ls -la docs/html/ || echo "No docs/html directory found"
-        find docs -type f -name "*.html" | head -10 || echo "No HTML files found"
+        echo "Checking if documentation was generated..."
+        if [ -f "docs/html/index.html" ]; then
+          echo "✅ Documentation found in docs/html/"
+          ls -la docs/html/ | head -10
+          echo "Total files: $(find docs/html -type f | wc -l)"
+        else
+          echo "❌ Documentation not found!"
+          echo "Project root contents:"
+          ls -la
+          echo "Looking for any HTML files:"
+          find . -name "*.html" -type f || echo "No HTML files found"
+          exit 1
+        fi
         
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -46,6 +54,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/html
+        force_orphan: true
         
     - name: Upload documentation artifacts
       uses: actions/upload-artifact@v4

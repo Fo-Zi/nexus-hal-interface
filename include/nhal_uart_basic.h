@@ -26,14 +26,14 @@
  * @param uart_ctxt Pointer to UART context structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_init(struct nhal_uart_context * uart_ctxt);
+nhal_result_t nhal_uart_init(struct nhal_uart_context * ctx);
 
 /**
  * @brief Deinitialize UART context
  * @param uart_ctxt Pointer to UART context structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_deinit(struct nhal_uart_context * uart_ctxt);
+nhal_result_t nhal_uart_deinit(struct nhal_uart_context * ctx);
 
 /**
  * @brief Set UART configuration
@@ -41,7 +41,7 @@ nhal_result_t nhal_uart_deinit(struct nhal_uart_context * uart_ctxt);
  * @param cfg Pointer to configuration structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_set_config(struct nhal_uart_context * uart_ctxt, struct nhal_uart_config *cfg);
+nhal_result_t nhal_uart_set_config(struct nhal_uart_context * ctx, struct nhal_uart_config *cfg);
 
 /**
  * @brief Get current UART configuration
@@ -49,7 +49,7 @@ nhal_result_t nhal_uart_set_config(struct nhal_uart_context * uart_ctxt, struct 
  * @param cfg Pointer to configuration structure to fill
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_get_config(struct nhal_uart_context * uart_ctxt, struct nhal_uart_config *cfg);
+nhal_result_t nhal_uart_get_config(struct nhal_uart_context * ctx, struct nhal_uart_config *cfg);
 
 /**
  * @brief Write data to UART (blocking)
@@ -59,7 +59,7 @@ nhal_result_t nhal_uart_get_config(struct nhal_uart_context * uart_ctxt, struct 
  * @param timeout Timeout in milliseconds
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_write(struct nhal_uart_context * uart_ctxt, const uint8_t *data, size_t len, nhal_timeout_ms timeout);
+nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *data, size_t len, nhal_timeout_ms timeout);
 
 /**
  * @brief Read data from UART (blocking)
@@ -69,6 +69,6 @@ nhal_result_t nhal_uart_write(struct nhal_uart_context * uart_ctxt, const uint8_
  * @param timeout Timeout in milliseconds
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_read(struct nhal_uart_context * uart_ctxt, uint8_t *data, size_t len, nhal_timeout_ms timeout);
+nhal_result_t nhal_uart_read(struct nhal_uart_context * ctx, uint8_t *data, size_t len, nhal_timeout_ms timeout);
 
 #endif /* NHAL_UART_BASIC_H */

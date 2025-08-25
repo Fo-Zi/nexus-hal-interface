@@ -14,13 +14,13 @@
 
 #include "nhal_pin_types.h"
 
-nhal_result_t nhal_pin_init(struct nhal_pin_context * pin_ctxt);
-nhal_result_t nhal_pin_deinit(struct nhal_pin_context * pin_ctxt);
-nhal_result_t nhal_pin_set_config(struct nhal_pin_context * pin_ctxt, struct nhal_pin_config * config );
-nhal_result_t nhal_pin_get_config(struct nhal_pin_context * pin_ctxt, struct nhal_pin_config * config );
-nhal_result_t nhal_pin_set_state(struct nhal_pin_context * pin_ctxt, nhal_pin_state_t value);
-nhal_result_t nhal_pin_get_state(struct nhal_pin_context * pin_ctxt, nhal_pin_state_t *value);
-nhal_result_t nhal_pin_set_callback( struct nhal_pin_context * pin_ctxt, nhal_pin_callback_t callback );
-nhal_result_t nhal_pin_set_direction(struct nhal_pin_context * pin_ctxt, nhal_pin_dir_t direction, nhal_pin_pull_mode_t pull_mode);
+nhal_result_t nhal_pin_init(struct nhal_pin_context * ctx);
+nhal_result_t nhal_pin_deinit(struct nhal_pin_context * ctx);
+nhal_result_t nhal_pin_set_config(struct nhal_pin_context * ctx, struct nhal_pin_config * config );
+nhal_result_t nhal_pin_get_config(struct nhal_pin_context * ctx, struct nhal_pin_config * config );
+nhal_result_t nhal_pin_set_state(struct nhal_pin_context * ctx, nhal_pin_state_t value);
+nhal_result_t nhal_pin_get_state(struct nhal_pin_context * ctx, nhal_pin_state_t *value);
+nhal_result_t nhal_pin_set_callback( struct nhal_pin_context * ctx, nhal_pin_callback_t callback );
+nhal_result_t nhal_pin_set_direction(struct nhal_pin_context * ctx, nhal_pin_dir_t direction, nhal_pin_pull_mode_t pull_mode);
 
 #endif

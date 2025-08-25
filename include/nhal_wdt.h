@@ -24,14 +24,14 @@
  * @param wdt_ctx Pointer to watchdog context structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_wdt_init(struct nhal_wdt_context * wdt_ctx);
+nhal_result_t nhal_wdt_init(struct nhal_wdt_context * ctx);
 
 /**
  * @brief Deinitialize watchdog context
  * @param wdt_ctx Pointer to watchdog context structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_wdt_deinit(struct nhal_wdt_context * wdt_ctx);
+nhal_result_t nhal_wdt_deinit(struct nhal_wdt_context * ctx);
 
 /**
  * @brief Set watchdog configuration
@@ -39,7 +39,7 @@ nhal_result_t nhal_wdt_deinit(struct nhal_wdt_context * wdt_ctx);
  * @param config Pointer to configuration structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_wdt_set_config(struct nhal_wdt_context * wdt_ctx, struct nhal_wdt_config * config);
+nhal_result_t nhal_wdt_set_config(struct nhal_wdt_context * ctx, struct nhal_wdt_config * config);
 
 /**
  * @brief Get current watchdog configuration
@@ -47,27 +47,27 @@ nhal_result_t nhal_wdt_set_config(struct nhal_wdt_context * wdt_ctx, struct nhal
  * @param config Pointer to configuration structure to fill
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_wdt_get_config(struct nhal_wdt_context * wdt_ctx, struct nhal_wdt_config * config);
+nhal_result_t nhal_wdt_get_config(struct nhal_wdt_context * ctx, struct nhal_wdt_config * config);
 
 /**
  * @brief Start/Enable the watchdog timer
  * @param wdt_ctx Pointer to watchdog context structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_wdt_enable(struct nhal_wdt_context * wdt_ctx);
+nhal_result_t nhal_wdt_enable(struct nhal_wdt_context * ctx);
 
 /**
  * @brief Stop/Disable the watchdog timer (if supported)
  * @param wdt_ctx Pointer to watchdog context structure
  * @return NHAL_OK on success, NHAL_ERR_UNSUPPORTED if not supported
  */
-nhal_result_t nhal_wdt_disable(struct nhal_wdt_context * wdt_ctx);
+nhal_result_t nhal_wdt_disable(struct nhal_wdt_context * ctx);
 
 /**
  * @brief Feed/Reset the watchdog timer
  * @param wdt_ctx Pointer to watchdog context structure
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_wdt_feed(struct nhal_wdt_context * wdt_ctx);
+nhal_result_t nhal_wdt_feed(struct nhal_wdt_context * ctx);
 
 #endif /* NHAL_WDT_H */

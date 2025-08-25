@@ -35,15 +35,6 @@ struct nhal_spi_config{
     struct nhal_spi_impl_config * impl_config;
 };
 
-/**
- * @brief Configuration for asynchronous operations with DMA support
- */
-struct nhal_spi_async_dma_config{
-    struct nhal_spi_config basic_config;       /**< Basic SPI configuration */
-    uint16_t max_transfer_sz;                  /**< Maximum transfer size in bytes for DMA */
-    uint8_t dma_chan;                          /**< DMA channel to use (0 for auto-select) */
-    uint8_t queue_size;                        /**< Transaction queue size for async operations */
-};
 
 typedef enum {
     NHAL_SPI_OP_MODE_SYNC_ONLY,        /**< Synchronous blocking operations only. */
@@ -60,17 +51,7 @@ struct nhal_spi_context{
     
     struct nhal_spi_impl_ctx * impl_ctx;
 
-    // Conditional extensions - only included if support is compiled in
-#if defined(NHAL_SPI_ASYNC_DMA_SUPPORT)
-    struct nhal_spi_async_dma_extension {
-        uint16_t max_transfer_sz;
-        uint8_t dma_chan;
-        uint8_t queue_size;
-        uint8_t tx_operations_queued;
-        uint8_t rx_operations_available;
-        bool is_async_initialized;
-    } async_dma;
-#endif
+    // Async extensions handled separately in async context
 };
 
 struct nhal_spi_daisy_device {

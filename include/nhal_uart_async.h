@@ -21,54 +21,42 @@
 #include "nhal_common.h"
 #include "nhal_uart_types.h"
 
-// Only provide async API if support enabled in private implementation header
-#if defined(NHAL_UART_ASYNC_BUFFERED_SUPPORT)
+#if defined(NHAL_UART_ASYNC_SUPPORT)
 
-nhal_result_t nhal_uart_enable_async_mode(
-    struct nhal_uart_context * uart_ctxt,
-    const struct nhal_uart_async_buffered_config *buffered_cfg
+nhal_result_t nhal_uart_init_async(
+    struct nhal_uart_context * ctx,
+    const struct nhal_async_config * async_cfg
 );
 
-nhal_result_t nhal_uart_disable_async_mode(
-    struct nhal_uart_context * uart_ctxt
+nhal_result_t nhal_uart_deinit_async(
+    struct nhal_uart_context * ctx
 );
 
-nhal_result_t nhal_uart_set_buffered_config(
-    struct nhal_uart_context * uart_ctxt,
-    const struct nhal_uart_async_buffered_config *buffered_cfg
+nhal_result_t nhal_uart_set_async_callback(
+    struct nhal_uart_context *ctx,
+    nhal_async_complete_cb_t callback
+);
+
+nhal_result_t nhal_uart_disable_async_callback(
+    struct nhal_uart_context *ctx
+);
+
+nhal_async_status_t nhal_uart_get_async_status(
+    struct nhal_uart_context *ctx
 );
 
 nhal_result_t nhal_uart_write_async(
-    struct nhal_uart_context * uart_ctxt,
+    struct nhal_uart_context * ctx,
     const uint8_t *data, size_t len,
-    nhal_timeout_ms timeout
+    nhal_timeout_ms timeout_ms
 );
 
 nhal_result_t nhal_uart_read_async(
-    struct nhal_uart_context * uart_ctxt,
-    uint8_t *data, size_t len, size_t *bytes_read,
-    nhal_timeout_ms timeout
+    struct nhal_uart_context * ctx,
+    uint8_t *data, size_t len,
+    nhal_timeout_ms timeout_ms
 );
 
-nhal_result_t nhal_uart_get_rx_available(
-    struct nhal_uart_context * uart_ctxt,
-    size_t *bytes_available
-);
+#endif /* NHAL_UART_ASYNC_SUPPORT */
 
-nhal_result_t nhal_uart_get_tx_free(
-    struct nhal_uart_context * uart_ctxt,
-    size_t *bytes_free
-);
-
-nhal_result_t nhal_uart_flush_tx(
-    struct nhal_uart_context * uart_ctxt,
-    nhal_timeout_ms timeout
-);
-
-nhal_result_t nhal_uart_clear_rx(
-    struct nhal_uart_context * uart_ctxt
-);
-
-#endif /* NHAL_UART_BUFFERED_SUPPORT */
-
-#endif /* NHAL_UART_BUFFERED_H */
+#endif /* NHAL_UART_ASYNC_H */

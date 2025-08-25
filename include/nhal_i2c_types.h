@@ -26,14 +26,6 @@ typedef enum {
     NHAL_I2C_OP_MODE_SYNC_AND_ASYNC    /**< Both synchronous and asynchronous operations with DMA support. */
 } nhal_i2c_operation_mode_t;
 
-/**
- * @brief Configuration for asynchronous operations with DMA support
- */
-struct nhal_i2c_async_dma_config{
-    struct nhal_i2c_config basic_config;      /**< Basic I2C configuration */
-    uint16_t max_transfer_sz;                 /**< Maximum transfer size in bytes for DMA */
-    uint8_t queue_size;                       /**< Transaction queue size for async operations */
-};
 
 /**
  * @brief Base I2C context - always present, minimal footprint
@@ -44,16 +36,7 @@ struct nhal_i2c_context{
 
     struct nhal_i2c_impl_ctx * impl_ctx;
 
-    // Conditional extensions - only included if support is compiled in
-#if defined(NHAL_I2C_ASYNC_DMA_SUPPORT)
-    struct nhal_i2c_async_dma_extension {
-        uint16_t max_transfer_sz;
-        uint8_t queue_size;
-        uint8_t tx_operations_queued;
-        uint8_t rx_operations_available;
-        bool is_async_initialized;
-    } async_dma;
-#endif
+    // Async extensions handled separately in async context
 };
 
 

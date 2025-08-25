@@ -5,6 +5,20 @@
 
 typedef uint16_t nhal_timeout_ms;
 
+// Common async operation types
+typedef void (*nhal_async_complete_cb_t)(nhal_result_t result);
+
+typedef enum {
+    NHAL_ASYNC_STATUS_IDLE,      /**< No async operation in progress */
+    NHAL_ASYNC_STATUS_BUSY,      /**< Async operation in progress */
+    NHAL_ASYNC_STATUS_COMPLETE,  /**< Operation completed successfully */
+    NHAL_ASYNC_STATUS_ERROR      /**< Operation completed with error */
+} nhal_async_status_t;
+
+struct nhal_async_config {
+    struct nhal_async_impl_config * impl_config;  /**< Platform-specific async config */
+};
+
 /**
  * @brief Unified HAL result type for all peripheral operations
  */

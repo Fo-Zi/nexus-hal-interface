@@ -53,7 +53,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/html
+        publish_dir: ${{ github.workspace }}/docs/html
         force_orphan: true
         
     - name: Upload documentation artifacts

@@ -15,6 +15,10 @@
 #include "nhal_common.h"
 #include "nhal_spi_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize SPI daisy chain context
  * @param daisy_ctx Pointer to SPI daisy chain context structure
@@ -97,5 +101,9 @@ nhal_result_t nhal_spi_daisy_read_uniform(
     uint8_t * data, size_t data_per_device,
     nhal_timeout_ms timeout
 );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

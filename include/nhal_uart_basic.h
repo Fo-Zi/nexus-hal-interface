@@ -21,6 +21,10 @@
 #include "nhal_common.h"
 #include "nhal_uart_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize UART context in basic mode
  * @param ctx Pointer to UART context structure
@@ -70,5 +74,9 @@ nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *dat
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_read(struct nhal_uart_context * ctx, uint8_t *data, size_t len, nhal_timeout_ms timeout);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* NHAL_UART_BASIC_H */

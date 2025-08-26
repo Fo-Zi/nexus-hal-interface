@@ -22,6 +22,10 @@
 #include "nhal_common.h"
 #include "nhal_i2c_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 nhal_result_t nhal_i2c_master_init(struct nhal_i2c_context * ctx);
 nhal_result_t nhal_i2c_master_deinit(struct nhal_i2c_context *ctx);
 nhal_result_t nhal_i2c_master_set_config(struct nhal_i2c_context *ctx, struct nhal_i2c_config *config);
@@ -48,5 +52,9 @@ nhal_result_t nhal_i2c_master_write_read_reg(
     uint8_t *data, size_t data_len,
     nhal_timeout_ms timeout
 );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

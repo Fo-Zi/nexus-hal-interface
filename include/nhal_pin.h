@@ -14,6 +14,10 @@
 
 #include "nhal_pin_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize pin context
  * @param ctx Pointer to pin context structure
@@ -69,5 +73,9 @@ nhal_result_t nhal_pin_set_callback( struct nhal_pin_context * ctx, nhal_pin_cal
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_pin_set_direction(struct nhal_pin_context * ctx, nhal_pin_dir_t direction, nhal_pin_pull_mode_t pull_mode);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

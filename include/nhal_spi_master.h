@@ -22,6 +22,10 @@
 #include "nhal_common.h"
 #include "nhal_spi_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 nhal_result_t nhal_spi_master_init(struct nhal_spi_context * ctx);
 nhal_result_t nhal_spi_master_deinit(struct nhal_spi_context * ctx);
 nhal_result_t nhal_spi_master_set_config(struct nhal_spi_context * ctx, struct nhal_spi_config * config);
@@ -45,5 +49,9 @@ nhal_result_t nhal_spi_master_write_read(
     uint8_t * rx_data, size_t rx_len,
     nhal_timeout_ms timeout
 );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

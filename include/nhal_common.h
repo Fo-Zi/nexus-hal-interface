@@ -5,9 +5,6 @@
 
 typedef uint16_t nhal_timeout_ms;
 
-// Common async operation types
-typedef void (*nhal_async_complete_cb_t)(nhal_result_t result);
-
 typedef enum {
     NHAL_ASYNC_STATUS_IDLE,      /**< No async operation in progress */
     NHAL_ASYNC_STATUS_BUSY,      /**< Async operation in progress */
@@ -54,6 +51,9 @@ typedef enum {
     // Catch-all
     NHAL_ERR_OTHER                       /**< Unspecified error. */
 } nhal_result_t;
+
+// Common async operation types
+typedef void (*nhal_async_complete_cb_t)(nhal_result_t result);
 
 /**
  * @brief Delay for specified number of microseconds

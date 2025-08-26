@@ -21,6 +21,10 @@
 #include "nhal_common.h"
 #include "nhal_uart_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined(NHAL_UART_ASYNC_SUPPORT)
 
 /**
@@ -101,5 +105,9 @@ nhal_result_t nhal_uart_read_async(
 );
 
 #endif /* NHAL_UART_ASYNC_SUPPORT */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* NHAL_UART_ASYNC_H */

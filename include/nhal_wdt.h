@@ -19,6 +19,10 @@
 #include "nhal_common.h"
 #include "nhal_wdt_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Initialize watchdog context
  * @param ctx Pointer to watchdog context structure
@@ -69,5 +73,9 @@ nhal_result_t nhal_wdt_disable(struct nhal_wdt_context * ctx);
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_wdt_feed(struct nhal_wdt_context * ctx);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* NHAL_WDT_H */

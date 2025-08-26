@@ -16,6 +16,10 @@
 #include "nhal_common.h"
 #include "nhal_i2c_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Perform complex I2C transfer with multiple operations
  * @param ctx Pointer to I2C context structure
@@ -30,5 +34,9 @@ nhal_result_t nhal_i2c_master_perform_transfer(
     size_t num_ops,
     nhal_timeout_ms timeout_ms
 );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // NHAL_I2C_TRANSFER_H_

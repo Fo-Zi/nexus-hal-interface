@@ -21,6 +21,10 @@
 #include "nhal_common.h"
 #include "nhal_spi_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined(NHAL_SPI_ASYNC_SUPPORT)
 
 /**
@@ -118,5 +122,9 @@ nhal_result_t nhal_spi_master_write_read_async(
 );
 
 #endif /* NHAL_SPI_ASYNC_SUPPORT */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* NHAL_SPI_MASTER_ASYNC_H */

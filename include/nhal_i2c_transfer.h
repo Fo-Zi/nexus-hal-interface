@@ -6,8 +6,8 @@
  * structures and enums defined in `nhal_i2c_types.h` to facilitate complex I2C transactions,
  * including multi-message transfers with explicit control over START/STOP conditions and addressing.
  */
-#ifndef NHAL_I2C_TRANSFER_H_
-#define NHAL_I2C_TRANSFER_H_
+#ifndef NHAL_I2C_TRANSFER_H
+#define NHAL_I2C_TRANSFER_H
 
 #include <stdint.h>
 #include <stddef.h>

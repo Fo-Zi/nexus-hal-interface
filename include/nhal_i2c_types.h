@@ -14,25 +14,18 @@
 #include "nhal_common.h"
 
 typedef uint8_t nhal_i2c_bus_id;
-typedef uint16_t nhal_i2c_slave_addr;
+typedef uint16_t nhal_i2c_address;
 
 struct nhal_i2c_config{
     uint32_t clock_speed_hz;
     struct nhal_i2c_impl_config * impl_config;
 };
 
-typedef enum {
-    NHAL_I2C_OP_MODE_SYNC_ONLY,        /**< Synchronous blocking operations only. */
-    NHAL_I2C_OP_MODE_SYNC_AND_ASYNC    /**< Both synchronous and asynchronous operations with DMA support. */
-} nhal_i2c_operation_mode_t;
-
-
 /**
  * @brief Base I2C context - always present, minimal footprint
  */
 struct nhal_i2c_context{
     nhal_i2c_bus_id      i2c_bus_id;
-    nhal_i2c_operation_mode_t current_mode;
 
     struct nhal_i2c_impl_ctx * impl_ctx;
 
@@ -57,7 +50,7 @@ typedef enum {
  * A full I2C transaction can consist of one or more such messages.
  */
 typedef struct {
-    nhal_i2c_slave_addr address;          /**< 7-bit or 10-bit slave address for this message segment.
+    nhal_i2c_address address;             /**< 7-bit or 10-bit address for this message segment.
                                     *   The high bit (0x80) is not used for 7-bit addresses here;
                                     *   it's strictly the 7-bit address (0-127). */
     uint16_t flags;            /**< Combination of #nhal_i2c_transfer_bit_flags_t for this segment. */

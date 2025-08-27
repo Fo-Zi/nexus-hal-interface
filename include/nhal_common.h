@@ -53,7 +53,7 @@ typedef enum {
 } nhal_result_t;
 
 // Common async operation types
-typedef void (*nhal_async_complete_cb_t)(nhal_result_t result);
+typedef void (*nhal_async_complete_cb_t)(void *context);
 
 /**
  * @brief Delay for specified number of microseconds

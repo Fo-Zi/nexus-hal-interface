@@ -6,8 +6,8 @@
  * It defines types and functions for configuring, reading, writing, and
  * setting up callbacks for pin state changes.
  */
-#ifndef NHAL_PIN_H_
-#define NHAL_PIN_H_
+#ifndef NHAL_PIN_H
+#define NHAL_PIN_H
 
 #include <stdint.h>
 #include <stdbool.h>

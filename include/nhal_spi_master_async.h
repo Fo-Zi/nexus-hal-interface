@@ -7,7 +7,7 @@
  * non-blocking read/write operations with automatic DMA optimization.
  *
  * Async mode provides non-blocking data transfers with callback completion.
- * This mode requires NHAL_SPI_ASYNC_DMA_SUPPORT to be defined at compile time.
+ * This mode requires NHAL_SPI_ASYNC_SUPPORT to be defined at compile time.
  *
  * @note This header requires nhal_spi_master.h to be included first for base functionality
  */

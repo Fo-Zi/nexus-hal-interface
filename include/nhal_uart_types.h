@@ -44,26 +44,20 @@ struct nhal_uart_config{
     struct nhal_uart_impl_config * impl_config;
 };
 
-typedef enum {
-    NHAL_UART_OP_MODE_SYNC_ONLY,        /**< Synchronous blocking operations only. */
-    NHAL_UART_OP_MODE_SYNC_AND_ASYNC    /**< Both synchronous and asynchronous operations. */
-} nhal_uart_operation_mode_t;
-
 /**
  * @brief Base UART context - always present, minimal footprint
  */
 struct nhal_uart_context{
     nhal_uart_bus_id uart_bus_id;
-    nhal_uart_operation_mode_t current_mode;
 
     struct nhal_uart_impl_ctx * impl_ctx;
 
     // Async extensions handled separately in async context
 };
 
-typedef void (*nhal_uart_tx_complete_cb_t)(void * ctxt);
-typedef void (*nhal_uart_rx_complete_cb_t)(void * ctxt, uint8_t * data, size_t length);
-typedef void (*nhal_uart_error_cb_t)(void * ctxt, nhal_result_t error);
+typedef void (*nhal_uart_tx_complete_cb_t)(void *context);
+typedef void (*nhal_uart_rx_complete_cb_t)(void *context);
+typedef void (*nhal_uart_error_cb_t)(void *context);
 
 
 #endif /* NHAL_UART_TYPES_H */

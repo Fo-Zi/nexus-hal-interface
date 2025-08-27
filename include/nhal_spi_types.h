@@ -36,17 +36,11 @@ struct nhal_spi_config{
 };
 
 
-typedef enum {
-    NHAL_SPI_OP_MODE_SYNC_ONLY,        /**< Synchronous blocking operations only. */
-    NHAL_SPI_OP_MODE_SYNC_AND_ASYNC    /**< Both synchronous and asynchronous operations with DMA support. */
-} nhal_spi_operation_mode_t;
-
 /**
  * @brief Base SPI context - always present, minimal footprint
  */
 struct nhal_spi_context{
     nhal_spi_bus_id spi_bus_id;
-    nhal_spi_operation_mode_t current_mode;
     uint32_t actual_frequency_hz;           /**< Actual configured frequency (may differ from requested) */
     
     struct nhal_spi_impl_ctx * impl_ctx;

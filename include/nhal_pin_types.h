@@ -31,7 +31,7 @@ typedef enum {
     NHAL_PIN_PMODE_TOTAL_NUM,
 } nhal_pin_pull_mode_t;
 
-typedef void (*nhal_pin_callback_t)(void * ctxt);
+typedef void (*nhal_pin_callback_t)(void *context);
 
 struct nhal_pin_config{
     nhal_pin_dir_t direction;
@@ -39,6 +39,19 @@ struct nhal_pin_config{
     struct nhal_pin_impl_config * impl_config;
 };
 
+/**
+ * @brief Pin context structure
+ * 
+ * Note: Pin identification uses a different pattern than other peripherals.
+ * While other peripherals use simple bus IDs (uint8_t), pins require more
+ * complex identification schemes as different MCUs use various methods:
+ * - Simple GPIO numbers (0-31)
+ * - Port + pin combinations (PORTA.5, GPIOB.12)
+ * - Complex hierarchical schemes
+ * 
+ * Therefore, pin_id is a pointer to an implementation-specific structure
+ * rather than a simple integer bus ID.
+ */
 struct nhal_pin_context{
     struct nhal_pin_id * pin_id;
     struct nhal_pin_impl_ctx * impl_ctx;

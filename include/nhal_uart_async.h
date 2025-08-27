@@ -7,7 +7,7 @@
  * non-blocking read/write operations with callback completion.
  *
  * Async mode provides non-blocking data flow using internal TX/RX buffers managed by the HAL.
- * This mode requires NHAL_UART_ASYNC_BUFFERED_SUPPORT to be defined at compile time.
+ * This mode requires NHAL_UART_ASYNC_SUPPORT to be defined at compile time.
  *
  * @note This header requires nhal_uart_basic.h to be included first for base functionality
  */

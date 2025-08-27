@@ -21,7 +21,7 @@ typedef uint8_t nhal_wdt_id;
  * @brief Callback function type for watchdog events
  * @param ctxt User context pointer
  */
-typedef void (*nhal_wdt_callback_t)(void * ctxt);
+typedef void (*nhal_wdt_callback_t)(void *context);
 
 struct nhal_wdt_config {
     uint32_t timeout_ms;                        /**< Timeout period in milliseconds */

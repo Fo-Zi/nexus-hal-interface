@@ -7,7 +7,7 @@
  * non-blocking read/write operations with automatic DMA optimization.
  *
  * Async mode provides non-blocking data transfers with callback completion.
- * This mode requires NHAL_I2C_ASYNC_DMA_SUPPORT to be defined at compile time.
+ * This mode requires NHAL_I2C_ASYNC_SUPPORT to be defined at compile time.
  *
  * @note This header requires nhal_i2c_master.h to be included first for base functionality
  */
@@ -83,7 +83,7 @@ nhal_async_status_t nhal_i2c_master_get_async_status(
  */
 nhal_result_t nhal_i2c_master_write_async(
     struct nhal_i2c_context *ctx,
-    nhal_i2c_slave_addr dev_address,
+    nhal_i2c_address dev_address,
     const uint8_t *data,
     size_t len,
     nhal_timeout_ms timeout_ms
@@ -100,7 +100,7 @@ nhal_result_t nhal_i2c_master_write_async(
  */
 nhal_result_t nhal_i2c_master_read_async(
     struct nhal_i2c_context *ctx,
-    nhal_i2c_slave_addr dev_address,
+    nhal_i2c_address dev_address,
     uint8_t *data,
     size_t len,
     nhal_timeout_ms timeout_ms
@@ -119,7 +119,7 @@ nhal_result_t nhal_i2c_master_read_async(
  */
 nhal_result_t nhal_i2c_master_write_read_reg_async(
     struct nhal_i2c_context *ctx,
-    nhal_i2c_slave_addr dev_address,
+    nhal_i2c_address dev_address,
     const uint8_t *reg_address, size_t reg_len,
     uint8_t *data, size_t data_len,
     nhal_timeout_ms timeout_ms

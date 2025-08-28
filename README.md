@@ -1,15 +1,10 @@
-# NHAL Interface
+# Nexus HAL Interface
 
 ## Overview
 
-The NHAL Interface is a pure C header-only component that aims to define hardware abstraction layer interfaces for embedded systems. This component provides no implementation - only interface definitions, types, and contracts that implementation layers must fulfill.
+The NHAL Interface is a pure C header-only component that aims to define hardware abstraction layer interfaces for embedded systems. This component provides no implementation - only interface definitions, types, and contracts that implementation layers must fulfill. 
 
-## Motivation
-My motivation is centered around issues I've faced in my experience when working with Embedded Projects:
-- Many HALs are not designed to ease testability -> I'd end up creating my own shim abstraction layer for every project, just to allow me to unit-test a complex driver or other components.
-- Most HALs tie you to a specific MCU family/Framework/SDK -> Porting efforts if I want to for example use the same peripheral but in some other platform
-- Some HALs try to abstract everything, creating huge complex dependencies -> An overkill for many projects
-- HALs for RTOS and Bare metal are radically different, but **usually** the functionality most drivers need remains the same
+It's part of [nexus-embedded-ecosystem](https://github.com/Fo-Zi/nexus-embedded-ecosystem) ← You can find more documentation and references to other components here
 
 ## Goals
 My main goal is simply to provide a set of interfaces **for myself**, and ease the pain points I mentioned before. That said, if someone else 
@@ -19,9 +14,9 @@ The goals as an interface are the following:
 - To provide a set of interfaces isolated from their actual implementation:
   - Do you want to use your own implementation instead of some other provided by me? Go ahead!
   - Do you want to still use drivers implemented using the interface? You can!
-- The HAL serves merely as **a contract** between drivers and the interfaces they depend on
-- To provide easy testability for higher layers
-- To be as clear as possible on separating the parts of the interface that are truly generic, from the ones that may depend on the platform you will be working with
+- The HAL serves merely as **a contract** between drivers and the interfaces they depend on.
+- To provide easy testability for higher layers.
+- To be as clear as possible on separating the parts of the interface that are truly generic, from the ones that may depend on the platform you will be working with.
 - If the functionality of the same peripheral may vary a lot depending on configuration (i.e.: async/DMA vs blocking), a **separate interface** will be defined exposing these.
   Forcing a consumer to initializa DMA data when only wanting to use a simple I2C blocking operation, breaks SOLID principles. 
 
@@ -104,7 +99,7 @@ The interface assumes:
 
 ## Dependencies
 
-This interface component has **no dependencies** - it consists entirely of C header files defining:
+This interface component only depends on std C headers - it consists entirely of headers files defining:
 - Function signatures
 - Type definitions  
 - Enumeration values
@@ -126,13 +121,11 @@ Include the appropriate headers for your peripheral needs:
 ## Implementation Requirements
 
 Any implementation of these interfaces must:
-1. Provide concrete definitions for all `impl_*` structures
+1. Provide concrete definitions for all `impl_*` structures (Empty if not needed)
 2. Implement all declared functions with documented behavior
 3. Follow the state management lifecycle
 4. Return appropriate error codes for all failure conditions
 5. Handle context validation (NULL checks, state checks)
-6. Support the timeout semantics for blocking operations
-
 The interface will be versioned to allow drivers to depend on a fixed "snapshot" of the contract, in case of
 wanting to expand or modify it. Ideally, this HAL will be long-term stable, but since at the beggining I will
 need to experiment a lot in order to reach an API that's comfortable to use while portable, versioning will move

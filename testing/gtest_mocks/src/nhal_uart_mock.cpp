@@ -23,12 +23,12 @@ extern "C" {
         return NhalUartMock::instance().nhal_uart_get_config(ctx, cfg);
     }
 
-    nhal_result_t nhal_uart_write(struct nhal_uart_context *ctx, const uint8_t *data, size_t len, nhal_timeout_ms timeout) {
-        return NhalUartMock::instance().nhal_uart_write(ctx, data, len, timeout);
+    nhal_result_t nhal_uart_write(struct nhal_uart_context *ctx, const uint8_t *data, size_t len) {
+        return NhalUartMock::instance().nhal_uart_write(ctx, data, len);
     }
 
-    nhal_result_t nhal_uart_read(struct nhal_uart_context *ctx, uint8_t *data, size_t len, nhal_timeout_ms timeout) {
-        return NhalUartMock::instance().nhal_uart_read(ctx, data, len, timeout);
+    nhal_result_t nhal_uart_read(struct nhal_uart_context *ctx, uint8_t *data, size_t len) {
+        return NhalUartMock::instance().nhal_uart_read(ctx, data, len);
     }
 
     // UART Async interface implementations
@@ -52,11 +52,11 @@ extern "C" {
         return NhalUartMock::instance().nhal_uart_get_async_status(ctx);
     }
 
-    nhal_result_t nhal_uart_write_async(struct nhal_uart_context *ctx, const uint8_t *data, size_t len, nhal_timeout_ms timeout_ms) {
-        return NhalUartMock::instance().nhal_uart_write_async(ctx, data, len, timeout_ms);
+    nhal_result_t nhal_uart_write_async(struct nhal_uart_context *ctx, const uint8_t *data, size_t len) {
+        return NhalUartMock::instance().nhal_uart_write_async(ctx, data, len);
     }
 
-    nhal_result_t nhal_uart_read_async(struct nhal_uart_context *ctx, uint8_t *data, size_t len, nhal_timeout_ms timeout_ms) {
-        return NhalUartMock::instance().nhal_uart_read_async(ctx, data, len, timeout_ms);
+    nhal_result_t nhal_uart_read_async(struct nhal_uart_context *ctx, uint8_t *data, size_t len, size_t *bytes_read) {
+        return NhalUartMock::instance().nhal_uart_read_async(ctx, data, len, bytes_read);
     }
 }

@@ -56,8 +56,7 @@ nhal_result_t nhal_spi_daisy_get_config(struct nhal_spi_daisy_context * daisy_ct
  */
 nhal_result_t nhal_spi_daisy_write_chain(
     struct nhal_spi_daisy_context * daisy_ctx,
-    const struct nhal_spi_daisy_device * devices, size_t num_devices,
-    nhal_timeout_ms timeout
+    const struct nhal_spi_daisy_device * devices, size_t num_devices
 );
 
 /**
@@ -70,8 +69,7 @@ nhal_result_t nhal_spi_daisy_write_chain(
  */
 nhal_result_t nhal_spi_daisy_read_chain(
     struct nhal_spi_daisy_context * daisy_ctx,
-    struct nhal_spi_daisy_device * devices, size_t num_devices,
-    nhal_timeout_ms timeout
+    struct nhal_spi_daisy_device * devices, size_t num_devices
 );
 
 /**
@@ -84,8 +82,7 @@ nhal_result_t nhal_spi_daisy_read_chain(
  */
 nhal_result_t nhal_spi_daisy_write_uniform(
     struct nhal_spi_daisy_context * daisy_ctx,
-    const uint8_t * data, size_t data_per_device,
-    nhal_timeout_ms timeout
+    const uint8_t * data, size_t data_per_device
 );
 
 /**
@@ -98,8 +95,7 @@ nhal_result_t nhal_spi_daisy_write_uniform(
  */
 nhal_result_t nhal_spi_daisy_read_uniform(
     struct nhal_spi_daisy_context * daisy_ctx,
-    uint8_t * data, size_t data_per_device,
-    nhal_timeout_ms timeout
+    uint8_t * data, size_t data_per_device
 );
 
 #ifdef __cplusplus

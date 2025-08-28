@@ -31,8 +31,7 @@ extern "C" {
 nhal_result_t nhal_i2c_master_perform_transfer(
     struct nhal_i2c_context * ctx,
     nhal_i2c_transfer_op_t *ops,
-    size_t num_ops,
-    nhal_timeout_ms timeout_ms
+    size_t num_ops
 );
 
 #ifdef __cplusplus

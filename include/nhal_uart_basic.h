@@ -63,7 +63,7 @@ nhal_result_t nhal_uart_get_config(struct nhal_uart_context * ctx, struct nhal_u
  * @param timeout Timeout in milliseconds
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *data, size_t len, nhal_timeout_ms timeout);
+nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *data, size_t len);
 
 /**
  * @brief Read data from UART (blocking)
@@ -73,7 +73,7 @@ nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *dat
  * @param timeout Timeout in milliseconds
  * @return NHAL_OK on success, error code otherwise
  */
-nhal_result_t nhal_uart_read(struct nhal_uart_context * ctx, uint8_t *data, size_t len, nhal_timeout_ms timeout);
+nhal_result_t nhal_uart_read(struct nhal_uart_context * ctx, uint8_t *data, size_t len);
 
 #ifdef __cplusplus
 }

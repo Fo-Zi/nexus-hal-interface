@@ -23,16 +23,16 @@ extern "C" {
         return NhalI2cMock::instance().nhal_i2c_master_get_config(ctx, config);
     }
 
-    nhal_result_t nhal_i2c_master_write(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *data, size_t len, nhal_timeout_ms timeout) {
-        return NhalI2cMock::instance().nhal_i2c_master_write(ctx, dev_address, data, len, timeout);
+    nhal_result_t nhal_i2c_master_write(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *data, size_t len) {
+        return NhalI2cMock::instance().nhal_i2c_master_write(ctx, dev_address, data, len);
     }
 
-    nhal_result_t nhal_i2c_master_read(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, uint8_t *data, size_t len, nhal_timeout_ms timeout) {
-        return NhalI2cMock::instance().nhal_i2c_master_read(ctx, dev_address, data, len, timeout);
+    nhal_result_t nhal_i2c_master_read(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, uint8_t *data, size_t len) {
+        return NhalI2cMock::instance().nhal_i2c_master_read(ctx, dev_address, data, len);
     }
 
-    nhal_result_t nhal_i2c_master_write_read_reg(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *reg_address, size_t reg_len, uint8_t *data, size_t data_len, nhal_timeout_ms timeout) {
-        return NhalI2cMock::instance().nhal_i2c_master_write_read_reg(ctx, dev_address, reg_address, reg_len, data, data_len, timeout);
+    nhal_result_t nhal_i2c_master_write_read_reg(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *reg_address, size_t reg_len, uint8_t *data, size_t data_len) {
+        return NhalI2cMock::instance().nhal_i2c_master_write_read_reg(ctx, dev_address, reg_address, reg_len, data, data_len);
     }
 
     // I2C Master Async interface implementations
@@ -56,20 +56,20 @@ extern "C" {
         return NhalI2cMock::instance().nhal_i2c_master_get_async_status(ctx);
     }
 
-    nhal_result_t nhal_i2c_master_write_async(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *data, size_t len, nhal_timeout_ms timeout_ms) {
-        return NhalI2cMock::instance().nhal_i2c_master_write_async(ctx, dev_address, data, len, timeout_ms);
+    nhal_result_t nhal_i2c_master_write_async(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *data, size_t len) {
+        return NhalI2cMock::instance().nhal_i2c_master_write_async(ctx, dev_address, data, len);
     }
 
-    nhal_result_t nhal_i2c_master_read_async(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, uint8_t *data, size_t len, nhal_timeout_ms timeout_ms) {
-        return NhalI2cMock::instance().nhal_i2c_master_read_async(ctx, dev_address, data, len, timeout_ms);
+    nhal_result_t nhal_i2c_master_read_async(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, uint8_t *data, size_t len) {
+        return NhalI2cMock::instance().nhal_i2c_master_read_async(ctx, dev_address, data, len);
     }
 
-    nhal_result_t nhal_i2c_master_write_read_reg_async(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *reg_address, size_t reg_len, uint8_t *data, size_t data_len, nhal_timeout_ms timeout_ms) {
-        return NhalI2cMock::instance().nhal_i2c_master_write_read_reg_async(ctx, dev_address, reg_address, reg_len, data, data_len, timeout_ms);
+    nhal_result_t nhal_i2c_master_write_read_reg_async(struct nhal_i2c_context *ctx, nhal_i2c_address dev_address, const uint8_t *reg_address, size_t reg_len, uint8_t *data, size_t data_len) {
+        return NhalI2cMock::instance().nhal_i2c_master_write_read_reg_async(ctx, dev_address, reg_address, reg_len, data, data_len);
     }
 
     // I2C Transfer interface implementations
-    nhal_result_t nhal_i2c_master_perform_transfer(struct nhal_i2c_context *ctx, nhal_i2c_transfer_op_t *ops, size_t num_ops, nhal_timeout_ms timeout_ms) {
-        return NhalI2cMock::instance().nhal_i2c_master_perform_transfer(ctx, ops, num_ops, timeout_ms);
+    nhal_result_t nhal_i2c_master_perform_transfer(struct nhal_i2c_context *ctx, nhal_i2c_transfer_op_t *ops, size_t num_ops) {
+        return NhalI2cMock::instance().nhal_i2c_master_perform_transfer(ctx, ops, num_ops);
     }
 }

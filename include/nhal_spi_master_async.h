@@ -87,7 +87,6 @@ nhal_async_status_t nhal_spi_master_get_async_status(
 nhal_result_t nhal_spi_master_write_async(
     struct nhal_spi_context * ctx,
     const uint8_t * data, size_t len,
-    nhal_timeout_ms timeout_ms
 );
 
 /**
@@ -101,7 +100,6 @@ nhal_result_t nhal_spi_master_write_async(
 nhal_result_t nhal_spi_master_read_async(
     struct nhal_spi_context * ctx,
     uint8_t * data, size_t len,
-    nhal_timeout_ms timeout_ms
 );
 
 /**
@@ -118,7 +116,6 @@ nhal_result_t nhal_spi_master_write_read_async(
     struct nhal_spi_context * ctx,
     const uint8_t * tx_data, size_t tx_len,
     uint8_t * rx_data, size_t rx_len,
-    nhal_timeout_ms timeout_ms
 );
 
 #endif /* NHAL_SPI_ASYNC_SUPPORT */

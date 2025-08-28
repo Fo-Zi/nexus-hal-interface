@@ -86,8 +86,7 @@ nhal_async_status_t nhal_uart_get_async_status(
  */
 nhal_result_t nhal_uart_write_async(
     struct nhal_uart_context * ctx,
-    const uint8_t *data, size_t len,
-    nhal_timeout_ms timeout_ms
+    const uint8_t *data, size_t len
 );
 
 /**
@@ -100,8 +99,7 @@ nhal_result_t nhal_uart_write_async(
  */
 nhal_result_t nhal_uart_read_async(
     struct nhal_uart_context * ctx,
-    uint8_t *data, size_t len,
-    nhal_timeout_ms timeout_ms
+    uint8_t *data, size_t len
 );
 
 #endif /* NHAL_UART_ASYNC_SUPPORT */

@@ -56,17 +56,51 @@ typedef enum {
 typedef void (*nhal_async_complete_cb_t)(void *context);
 
 /**
- * @brief Delay for specified number of microseconds
+ * @brief Blocking delay for specified number of microseconds
+ *
+ * This function performs a busy-wait delay, blocking the calling thread
+ * for the specified duration. Should be used for precise timing requirements
+ * where scheduler-based delays are insufficient.
  *
  * @param microseconds Number of microseconds to delay
  */
 void nhal_delay_microseconds(uint32_t microseconds);
 
 /**
- * @brief Delay for specified number of milliseconds
+ * @brief Blocking delay for specified number of milliseconds
+ *
+ * This function performs a busy-wait delay, blocking the calling thread
+ * for the specified duration. Should be used for precise timing requirements
+ * where scheduler-based delays are insufficient.
  *
  * @param milliseconds Number of milliseconds to delay
  */
 void nhal_delay_milliseconds(uint32_t milliseconds);
+
+/**
+ * @brief Get monotonic timestamp in microseconds since boot
+ *
+ * This function returns a monotonic timestamp suitable for measuring
+ * time intervals with microsecond precision. The timestamp resets on
+ * system boot and may rollover after ~4294 seconds on 32-bit systems.
+ * Unsigned arithmetic automatically handles rollover correctly for
+ * interval calculations.
+ *
+ * @return Monotonic timestamp in microseconds
+ */
+uint64_t nhal_get_timestamp_microseconds(void);
+
+/**
+ * @brief Get monotonic timestamp in milliseconds since boot
+ *
+ * This function returns a monotonic timestamp suitable for measuring
+ * time intervals with millisecond precision. The timestamp resets on
+ * system boot and may rollover after ~49 days on 32-bit systems.
+ * Unsigned arithmetic automatically handles rollover correctly for
+ * interval calculations.
+ *
+ * @return Monotonic timestamp in milliseconds
+ */
+uint32_t nhal_get_timestamp_milliseconds(void);
 
 #endif

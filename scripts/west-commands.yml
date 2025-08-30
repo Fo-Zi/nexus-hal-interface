@@ -1,0 +1,21 @@
+west-commands:
+  - file: scripts/nexus_commands/build.py
+    commands:
+      - name: build
+        class: BuildCommand
+        help: build a project in the workspace
+  - file: scripts/nexus_commands/flash.py
+    commands:
+      - name: flash
+        class: FlashCommand  
+        help: flash a project to target hardware
+  - file: scripts/nexus_commands/list_projects.py
+    commands:
+      - name: list-projects
+        class: ListProjectsCommand
+        help: list all buildable projects in workspace
+  - file: scripts/nexus_commands/clean.py
+    commands:
+      - name: clean
+        class: CleanCommand
+        help: clean build artifacts for a project

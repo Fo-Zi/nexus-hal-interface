@@ -102,6 +102,31 @@ The interface assumes:
 - Implementation-specific data is managed internally by the implementation layer
 - No dynamic allocation requirements imposed on applications
 
+## Repository Contents
+
+This repository contains:
+
+### Interface Definitions
+- **`include/`** - Pure C header files defining hardware abstraction interfaces
+  - Peripheral interfaces (I2C, SPI, UART, GPIO, WDT)
+  - Common types and error handling
+  - No implementation dependencies
+
+### West Extension Commands  
+- **`scripts/`** - West build system integration for the Nexus Ecosystem
+  - `west-commands.yml` - Command definitions
+  - `nexus_commands/` - Python command implementations
+  - Unified build/flash workflow across project types
+  - Extensible runner system for custom flash tools
+
+### Testing Support
+- **`testing/`** - GoogleTest mock implementations for unit testing
+- Mock classes for all peripheral interfaces
+
+### Documentation Tools
+- **`docs-utils/`** - Doxygen configuration and build scripts
+- **`build-docs.sh`** - Automated documentation generation
+
 ## Dependencies
 
 This interface component has **no dependencies** - it consists entirely of C header files defining:

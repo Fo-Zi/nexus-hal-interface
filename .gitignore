@@ -22,6 +22,12 @@ Thumbs.db
 *.temp
 *.log
 
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
 # CMake files (if building in source)
 CMakeCache.txt
 CMakeFiles/

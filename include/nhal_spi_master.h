@@ -26,21 +26,69 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Initialize SPI master context
+ * @param ctx Pointer to SPI context structure
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_init(struct nhal_spi_context * ctx);
+
+/**
+ * @brief Deinitialize SPI master context
+ * @param ctx Pointer to SPI context structure
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_deinit(struct nhal_spi_context * ctx);
+
+/**
+ * @brief Set SPI master configuration
+ * @param ctx Pointer to SPI context structure
+ * @param config Pointer to configuration structure
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_set_config(struct nhal_spi_context * ctx, struct nhal_spi_config * config);
+
+/**
+ * @brief Get current SPI master configuration
+ * @param ctx Pointer to SPI context structure
+ * @param config Pointer to configuration structure to fill
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_get_config(struct nhal_spi_context * ctx, struct nhal_spi_config * config);
 
+/**
+ * @brief Write data to SPI device (blocking)
+ * @param ctx Pointer to SPI context structure
+ * @param data Pointer to data to transmit
+ * @param len Number of bytes to transmit
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_write(
     struct nhal_spi_context * ctx,
     const uint8_t * data, size_t len
 );
 
+/**
+ * @brief Read data from SPI device (blocking)
+ * @param ctx Pointer to SPI context structure
+ * @param data Pointer to buffer for received data
+ * @param len Number of bytes to read
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_read(
     struct nhal_spi_context * ctx,
     uint8_t * data, size_t len
 );
 
+/**
+ * @brief Simultaneous write and read on SPI device (blocking)
+ * @param ctx Pointer to SPI context structure
+ * @param tx_data Pointer to data to transmit
+ * @param tx_len Number of bytes to transmit
+ * @param rx_data Pointer to buffer for received data
+ * @param rx_len Number of bytes to read
+ * @return NHAL_OK on success, error code otherwise
+ */
 nhal_result_t nhal_spi_master_write_read(
     struct nhal_spi_context * ctx,
     const uint8_t * tx_data, size_t tx_len,

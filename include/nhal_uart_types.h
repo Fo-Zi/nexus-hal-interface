@@ -17,25 +17,34 @@
 
 #include "nhal_common.h"
 
-typedef uint8_t nhal_uart_bus_id;
-
-
+/**
+ * @brief UART parity bit configuration
+ */
 typedef enum {
     NHAL_UART_PARITY_NONE,   /**< No parity bit is used. */
     NHAL_UART_PARITY_EVEN,   /**< Parity bit is set such that the total number of '1' bits is even. */
     NHAL_UART_PARITY_ODD,    /**< Parity bit is set such that the total number of '1' bits is odd. */
 } nhal_uart_parity_t;
 
+/**
+ * @brief UART stop bits configuration
+ */
 typedef enum {
     NHAL_UART_STOP_BITS_1,       /**< 1 stop bit is used. */
     NHAL_UART_STOP_BITS_2,       /**< 2 stop bits are used. */
 } nhal_uart_stop_bits_t;
 
+/**
+ * @brief UART data bits configuration
+ */
 typedef enum {
     NHAL_UART_DATA_BITS_7,       /**< 7 data bits are used. */
     NHAL_UART_DATA_BITS_8,       /**< 8 data bits are used. */
 } nhal_uart_data_bits_t;
 
+/**
+ * @brief UART configuration structure
+ */
 struct nhal_uart_config{
     uint32_t baudrate;              /**< The baud rate for communication (bits per second). */
     nhal_uart_parity_t parity;       /**< The parity setting (none, even, or odd). */
@@ -45,19 +54,21 @@ struct nhal_uart_config{
 };
 
 /**
- * @brief Base UART context - always present, minimal footprint
+ * @brief UART context structure (implementation-defined)
+ *
+ * Contains platform-specific UART identification and runtime state.
+ * Must include unique bus identification and any shared resources.
+ *
+ * @par Example content:
+ * @code
+ * struct nhal_uart_context {
+ *     // Bus identification: UART index OR peripheral name OR base address
+ *     uint8_t uart_id;
+ *     // Shared resources: mutex for bus access, DMA handles, etc.
+ *     mutex_t *bus_lock;
+ * };
+ * @endcode
  */
-struct nhal_uart_context{
-    nhal_uart_bus_id uart_bus_id;
-
-    struct nhal_uart_impl_ctx * impl_ctx;
-
-    // Async extensions handled separately in async context
-};
-
-typedef void (*nhal_uart_tx_complete_cb_t)(void *context);
-typedef void (*nhal_uart_rx_complete_cb_t)(void *context);
-typedef void (*nhal_uart_error_cb_t)(void *context);
-
+struct nhal_uart_context;
 
 #endif /* NHAL_UART_TYPES_H */

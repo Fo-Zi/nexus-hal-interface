@@ -3,7 +3,7 @@
  * @brief Hardware Abstraction Layer (HAL) for synchronous UART communication.
  *
  * This header defines the public interface for synchronous (blocking) UART operations.
- * It provides functions for initializing, deinitializing, configuring, writing to, and 
+ * It provides functions for initializing, deinitializing, configuring, writing to, and
  * reading from UART instances in blocking mode.
  *
  * Synchronous mode provides blocking operations with automatic transfer optimization.
@@ -12,8 +12,8 @@
  * @note For asynchronous operations, see nhal_uart_async.h
  */
 
-#ifndef NHAL_UART_BASIC_H
-#define NHAL_UART_BASIC_H
+#ifndef NHAL_UART_H
+#define NHAL_UART_H
 
 #include <stddef.h>
 #include <stdint.h>
@@ -60,7 +60,6 @@ nhal_result_t nhal_uart_get_config(struct nhal_uart_context * ctx, struct nhal_u
  * @param ctx Pointer to UART context structure
  * @param data Pointer to data to transmit
  * @param len Number of bytes to transmit
- * @param timeout Timeout in milliseconds
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *data, size_t len);
@@ -70,7 +69,6 @@ nhal_result_t nhal_uart_write(struct nhal_uart_context * ctx, const uint8_t *dat
  * @param ctx Pointer to UART context structure
  * @param data Pointer to buffer for received data
  * @param len Number of bytes to read
- * @param timeout Timeout in milliseconds
  * @return NHAL_OK on success, error code otherwise
  */
 nhal_result_t nhal_uart_read(struct nhal_uart_context * ctx, uint8_t *data, size_t len);

@@ -7,7 +7,7 @@ west-commands:
   - file: scripts/nexus_commands/flash.py
     commands:
       - name: flash
-        class: FlashCommand  
+        class: FlashCommand
         help: flash a project to target hardware
   - file: scripts/nexus_commands/list_projects.py
     commands:

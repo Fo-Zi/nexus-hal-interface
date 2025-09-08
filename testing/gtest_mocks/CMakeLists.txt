@@ -12,7 +12,7 @@ add_library(nhal_mocks
     src/nhal_spi_mock.cpp
     src/nhal_i2c_mock.cpp
     src/nhal_pin_mock.cpp
-    src/nhal_wdt_mock.cpp
+    src/nhal_common_mock.cpp
 )
 
 # Set target properties
@@ -34,7 +34,6 @@ target_compile_features(nhal_mocks PUBLIC cxx_std_11)
 # Add compiler definitions for C linkage
 target_compile_definitions(nhal_mocks PRIVATE
     NHAL_MOCK_ENABLED=1
-    NHAL_SPI_ASYNC_SUPPORT=1
 )
 
 # Export the target for use by applications

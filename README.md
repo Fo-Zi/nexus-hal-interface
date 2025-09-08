@@ -53,30 +53,22 @@ The kind of errors the hal defines are up for debate and extension, of course.
 ### I2C Master
 - **Basic Operations**: `nhal_i2c_master.h` - Read/write operations
 - **Advanced Transfers**: `nhal_i2c_transfer.h` - Complex transaction support
-- **Async Operations**: `nhal_i2c_master_async.h` - Non-blocking operations
 - **Types**: `nhal_i2c_types.h`
 
 ### SPI Master  
 - **Synchronous Operations**: `nhal_spi_master.h` - Blocking read/write/exchange
-- **Async Operations**: `nhal_spi_master_async.h` - DMA-based operations
-- **Daisy Chain**: `nhal_spi_daisy_chain.h` - Multi-device chaining
 - **Types**: `nhal_spi_types.h`
 
 ### UART
-- **Basic Operations**: `nhal_uart_basic.h` - Synchronous read/write
-- **Async Operations**: `nhal_uart_async.h` - Buffered, non-blocking I/O
+- **Synchronous Operations**: `nhal_uart.h` - Blocking read/write
 - **Types**: `nhal_uart_types.h`
 
 ### GPIO/Pin Control
 - **Pin Operations**: `nhal_pin.h` - State control, interrupts, configuration
 - **Types**: `nhal_pin_types.h`
 
-### Watchdog Timer
-- **WDT Control**: `nhal_wdt.h` - Initialization, feeding, enable/disable
-- **Types**: `nhal_wdt_types.h`
-
 ### Common
-- **Core Types**: `nhal_common.h` - Result types, delays, common definitions
+- **Core Types**: `nhal_common.h` - Result types, timing functions, common definitions
 
 ## Interface Design Patterns
 
@@ -138,9 +130,8 @@ Include the appropriate headers for your peripheral needs:
 #include "nhal_common.h"     // Always required
 #include "nhal_i2c_master.h" // For I2C operations
 #include "nhal_spi_master.h" // For SPI operations  
-#include "nhal_uart_basic.h" // For UART operations
+#include "nhal_uart.h"       // For UART operations
 #include "nhal_pin.h"        // For GPIO operations
-#include "nhal_wdt.h"        // For watchdog operations
 ```
 
 ## Implementation Requirements

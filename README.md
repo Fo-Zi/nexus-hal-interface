@@ -1,3 +1,8 @@
+![GitHub License](https://img.shields.io/github/license/Fo-Zi/nexus-hal-interface)
+![GitHub Tag](https://img.shields.io/github/v/release/Fo-Zi/nexus-hal-interface)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Fo-Zi/nexus-hal-interface/documentation.yml)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue.svg)](https://Fo-Zi.github.io/nexus-hal-interface/)
+![C standard](https://img.shields.io/badge/C-99-blue.svg)
 # Nexus HAL Interface
 
 ## Overview
@@ -137,12 +142,10 @@ Include the appropriate headers for your peripheral needs:
 ## Implementation Requirements
 
 Any implementation of these interfaces must:
-1. Provide concrete definitions for all `impl_*` structures (Empty if not needed)
+1. Provide concrete definitions for all forward declared structs (Empty if not needed)
 2. Implement all declared functions with documented behavior
 3. Follow the state management lifecycle
 4. Return appropriate error codes for all failure conditions
-5. Handle context validation (NULL checks, state checks)
-The interface will be versioned to allow drivers to depend on a fixed "snapshot" of the contract, in case of
-wanting to expand or modify it. Ideally, this HAL will be long-term stable, but since at the beggining I will
-need to experiment a lot in order to reach an API that's comfortable to use while portable, versioning will move
-fast until I reach v1.0.0.
+5. If a hardware functionality is not supported by the implementation, it's advised to
+   make the methods in question return "unsupported" error, or assert and make the program crash.
+   This way drivers that may depend on those features will not fail silently. (Example: Pull-ups, interrupts)

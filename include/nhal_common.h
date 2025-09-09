@@ -3,9 +3,9 @@
  * @brief Common definitions and utilities for the NEXUS Hardware Abstraction Layer (HAL).
  *
  * This header defines common result codes, timeout types, and utility functions
- * used across all HAL modules. All interfaces defined in this module are 
+ * used across all HAL modules. All interfaces defined in this module are
  * SYNCHRONOUS (blocking) operations that complete before returning to the caller.
- * 
+ *
  * The timing functions (delays and timestamps) provide precise blocking delays
  * and monotonic timestamps for timing-critical operations in embedded systems.
  */
@@ -13,6 +13,10 @@
 #define NHAL_COMMON_H
 
 #include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef uint16_t nhal_timeout_ms;
 
@@ -99,5 +103,9 @@ uint64_t nhal_get_timestamp_microseconds(void);
  * @return Monotonic timestamp in milliseconds
  */
 uint32_t nhal_get_timestamp_milliseconds(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

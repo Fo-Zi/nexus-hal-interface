@@ -49,6 +49,9 @@ typedef enum {
     NHAL_PIN_INT_TRIGGER_TOTAL_NUM,
 } nhal_pin_int_trigger_t;
 
+/* Forward declaration */
+struct nhal_pin_context;
+
 /**
  * @brief Pin interrupt callback function type
  * 

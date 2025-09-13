@@ -11,31 +11,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/**
- * @brief I2C address type enumeration
- */
-typedef enum {
-    NHAL_I2C_7BIT_ADDR = 0,
-    NHAL_I2C_10BIT_ADDR = 1
-}nhal_i2c_addr_type;
-
-/**
- * @brief I2C device address structure
- */
-typedef struct nhal_i2c_address{
-    nhal_i2c_addr_type type;
-    union{
-        uint8_t address_7bit;
-        uint16_t address_10bit;
-    };
-}nhal_i2c_address_t;
-
-/**
- * @brief I2C configuration structure
- */
-struct nhal_i2c_config{
-    struct nhal_i2c_impl_config * impl_config;
-};
 
 /**
  * @brief I2C context structure (implementation-defined)
@@ -54,6 +29,32 @@ struct nhal_i2c_config{
  * @endcode
  */
 struct nhal_i2c_context;
+
+/**
+ * @brief I2C address type enumeration
+ */
+typedef enum {
+    NHAL_I2C_7BIT_ADDR = 0,
+    NHAL_I2C_10BIT_ADDR = 1
+}nhal_i2c_addr_type;
+
+/**
+ * @brief I2C device address structure
+ */
+typedef struct nhal_i2c_address{
+    nhal_i2c_addr_type type;
+    union{
+        uint8_t address_7bit;
+        uint16_t address_10bit;
+    }addr;
+}nhal_i2c_address_t;
+
+/**
+ * @brief I2C configuration structure
+ */
+struct nhal_i2c_config{
+    struct nhal_i2c_impl_config * impl_config;
+};
 
 /**
  * @brief I2C operation type enumeration

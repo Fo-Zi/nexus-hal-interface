@@ -12,6 +12,25 @@
 
 #include "nhal_common.h"
 
+
+/**
+ * @brief Pin context structure (implementation-defined)
+ *
+ * Contains platform-specific pin identification and runtime state.
+ * Must include unique pin identification and any shared resources.
+ *
+ * @par Example content:
+ * @code
+ * struct nhal_pin_context {
+ *     // Pin identification: GPIO number OR port+pin OR platform handle
+ *     uint32_t pin_id;
+ *     // Shared resources: mutex for thread safety, callback state, etc.
+ *     mutex_t *lock;
+ * };
+ * @endcode
+ */
+struct nhal_pin_context;
+
 /**
  * @brief Pin logic state enumeration
  */
@@ -51,10 +70,10 @@ typedef enum {
 
 /**
  * @brief Pin interrupt callback function type
- * 
+ *
  * @param pin_ctx Pin context that triggered the interrupt
  * @param user_data User-provided data pointer
- * 
+ *
  * @note This executes in interrupt context - keep it fast and minimal
  */
 typedef void (*nhal_pin_callback_t)(struct nhal_pin_context *pin_ctx, void *user_data);
@@ -67,24 +86,5 @@ struct nhal_pin_config{
     nhal_pin_pull_mode_t pull_mode;
     struct nhal_pin_impl_config * impl_config;
 };
-
-/**
- * @brief Pin context structure (implementation-defined)
- *
- * Contains platform-specific pin identification and runtime state.
- * Must include unique pin identification and any shared resources.
- *
- * @par Example content:
- * @code
- * struct nhal_pin_context {
- *     // Pin identification: GPIO number OR port+pin OR platform handle
- *     uint32_t pin_id;
- *     // Shared resources: mutex for thread safety, callback state, etc.
- *     mutex_t *lock;
- * };
- * @endcode
- */
-struct nhal_pin_context;
-
 
 #endif

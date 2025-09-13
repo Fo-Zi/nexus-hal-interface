@@ -14,6 +14,24 @@
 #include "nhal_common.h"
 
 /**
+ * @brief SPI context structure (implementation-defined)
+ *
+ * Contains platform-specific SPI identification and runtime state.
+ * Must include unique bus identification and any shared resources.
+ *
+ * @par Example content:
+ * @code
+ * struct nhal_spi_context {
+ *     // Bus identification: SPI index OR peripheral name OR base address
+ *     uint8_t spi_id;
+ *     // Shared resources: mutex for bus access, chip select management, etc.
+ *     mutex_t *bus_lock;
+ * };
+ * @endcode
+ */
+struct nhal_spi_context;
+
+/**
  * @brief SPI duplex mode configuration
  */
 typedef enum {
@@ -48,23 +66,5 @@ struct nhal_spi_config{
     nhal_spi_bit_order_t bit_order;
     struct nhal_spi_impl_config * impl_config;
 };
-
-/**
- * @brief SPI context structure (implementation-defined)
- *
- * Contains platform-specific SPI identification and runtime state.
- * Must include unique bus identification and any shared resources.
- *
- * @par Example content:
- * @code
- * struct nhal_spi_context {
- *     // Bus identification: SPI index OR peripheral name OR base address
- *     uint8_t spi_id;
- *     // Shared resources: mutex for bus access, chip select management, etc.
- *     mutex_t *bus_lock;
- * };
- * @endcode
- */
-struct nhal_spi_context;
 
 #endif /* NHAL_SPI_TYPES_H */

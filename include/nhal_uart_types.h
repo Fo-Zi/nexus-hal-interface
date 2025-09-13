@@ -18,6 +18,24 @@
 #include "nhal_common.h"
 
 /**
+ * @brief UART context structure (implementation-defined)
+ *
+ * Contains platform-specific UART identification and runtime state.
+ * Must include unique bus identification and any shared resources.
+ *
+ * @par Example content:
+ * @code
+ * struct nhal_uart_context {
+ *     // Bus identification: UART index OR peripheral name OR base address
+ *     uint8_t uart_id;
+ *     // Shared resources: mutex for bus access, DMA handles, etc.
+ *     mutex_t *bus_lock;
+ * };
+ * @endcode
+ */
+struct nhal_uart_context;
+
+/**
  * @brief UART parity bit configuration
  */
 typedef enum {
@@ -52,23 +70,5 @@ struct nhal_uart_config{
     nhal_uart_data_bits_t data_bits; /**< The number of data bits (e.g., 7 or 8). */
     struct nhal_uart_impl_config * impl_config;
 };
-
-/**
- * @brief UART context structure (implementation-defined)
- *
- * Contains platform-specific UART identification and runtime state.
- * Must include unique bus identification and any shared resources.
- *
- * @par Example content:
- * @code
- * struct nhal_uart_context {
- *     // Bus identification: UART index OR peripheral name OR base address
- *     uint8_t uart_id;
- *     // Shared resources: mutex for bus access, DMA handles, etc.
- *     mutex_t *bus_lock;
- * };
- * @endcode
- */
-struct nhal_uart_context;
 
 #endif /* NHAL_UART_TYPES_H */

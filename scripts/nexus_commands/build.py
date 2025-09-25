@@ -7,6 +7,7 @@ import sys
 import subprocess
 from pathlib import Path
 from west.commands import WestCommand
+import yaml
 
 # Add the scripts directory to Python path for imports
 script_dir = Path(__file__).parent
@@ -51,11 +52,19 @@ class BuildCommand(WestCommand):
             action='store_true',
             help='verbose output'
         )
+        parser.add_argument(
+            '-b', '--board',
+            help='target platform (from platform_builds.yaml)'
+        )
         return parser
     
     def do_run(self, args, unknown_args):
+        # Check for board-based build first
+        if args.board:
+            return self._build_with_board(args.board, args, unknown_args)
+
         workspace_root = ProjectDetector.find_workspace_root()
-        
+
         if args.all:
             return self._build_all_projects(workspace_root, args, unknown_args)
         elif args.project:
@@ -207,3 +216,81 @@ class BuildCommand(WestCommand):
                 shutil.rmtree(build_dir)
         elif project_type == "make":
             subprocess.run(['make', 'clean'], check=False, cwd=project_path)
+
+    def _load_platform_builds_config(self):
+        """Load platform_builds.yaml configuration"""
+        try:
+            with open('platform_builds.yaml', 'r') as f:
+                return yaml.safe_load(f)
+        except FileNotFoundError:
+            return None
+        except yaml.YAMLError as e:
+            self.err(f"Error parsing platform_builds.yaml: {e}")
+            return None
+
+    def _build_with_board(self, board, args, unknown_args):
+        """Build for specific platform using platform_builds.yaml"""
+        config = self._load_platform_builds_config()
+
+        if not config:
+            self.err("platform_builds.yaml not found or invalid")
+            return 1
+
+        if 'platforms' not in config:
+            self.err("platform_builds.yaml missing 'platforms' section")
+            return 1
+
+        platform_config = config['platforms'].get(board)
+        if not platform_config:
+            available = list(config['platforms'].keys())
+            self.err(f"Platform '{board}' not found. Available: {', '.join(available)}")
+            return 1
+
+        build_path = platform_config.get('platform_build_path')
+        build_system = platform_config.get('build_system', 'cmake')
+
+        if not build_path:
+            self.err(f"Platform '{board}' missing 'platform_build_path' configuration")
+            return 1
+
+        build_path = Path(build_path)
+        if not build_path.exists():
+            self.err(f"Build path '{build_path}' does not exist")
+            return 1
+
+        # Change to platform build directory
+        original_cwd = os.getcwd()
+        try:
+            self.inf(f"Building {board} using {build_system} in {build_path}")
+            os.chdir(build_path)
+
+            if args.clean:
+                self._clean_platform_build(build_system)
+
+            # Use existing build system logic
+            if build_system == 'esp-idf':
+                return self._build_esp_idf_project(args, unknown_args)
+            elif build_system == 'cmake':
+                return self._build_cmake_project(args, unknown_args)
+            elif build_system == 'make':
+                return self._build_make_project(args, unknown_args)
+            else:
+                self.err(f"Unknown build system: {build_system}")
+                return 1
+
+        finally:
+            os.chdir(original_cwd)
+
+    def _clean_platform_build(self, build_system):
+        """Clean platform build artifacts"""
+        self.inf(f"Cleaning {build_system} build artifacts...")
+
+        if build_system == "esp-idf":
+            subprocess.run(['idf.py', 'clean'], check=False)
+        elif build_system == "cmake":
+            build_dir = Path('build')
+            if build_dir.exists():
+                import shutil
+                shutil.rmtree(build_dir)
+        elif build_system == "make":
+            subprocess.run(['make', 'clean'], check=False)

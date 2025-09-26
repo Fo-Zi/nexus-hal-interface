@@ -258,6 +258,9 @@ class BuildCommand(WestCommand):
             self.err(f"Build path '{build_path}' does not exist")
             return 1
 
+        # Save the current platform configuration for clean/flash commands
+        self._save_current_platform_config(board, build_path, build_system)
+
         # Change to platform build directory
         original_cwd = os.getcwd()
         try:
@@ -268,15 +271,18 @@ class BuildCommand(WestCommand):
                 self._clean_platform_build(build_system)
 
             # Use existing build system logic
+            result = None
             if build_system == 'esp-idf':
-                return self._build_esp_idf_project(args, unknown_args)
+                result = self._build_esp_idf_project(args, unknown_args)
             elif build_system == 'cmake':
-                return self._build_cmake_project(args, unknown_args)
+                result = self._build_cmake_project(args, unknown_args)
             elif build_system == 'make':
-                return self._build_make_project(args, unknown_args)
+                result = self._build_make_project(args, unknown_args)
             else:
                 self.err(f"Unknown build system: {build_system}")
                 return 1
+
+            return result
 
         finally:
             os.chdir(original_cwd)
@@ -294,3 +300,37 @@ class BuildCommand(WestCommand):
                 shutil.rmtree(build_dir)
         elif build_system == "make":
             subprocess.run(['make', 'clean'], check=False)
+
+    def _save_current_platform_config(self, board, build_path, build_system):
+        """Save current platform config for use by clean/flash commands"""
+        import json
+        state_file = Path('.west_platform_state')
+
+        state = {
+            'current_platform': board,
+            'build_path': str(build_path),
+            'build_system': build_system,
+            'project_root': str(Path.cwd())
+        }
+
+        try:
+            with open(state_file, 'w') as f:
+                json.dump(state, f, indent=2)
+        except Exception as e:
+            # Non-critical error, just log it
+            self.dbg(f"Could not save platform state: {e}")
+
+    @staticmethod
+    def load_current_platform_config():
+        """Load current platform config saved by build command"""
+        import json
+        state_file = Path('.west_platform_state')
+
+        if not state_file.exists():
+            return None
+
+        try:
+            with open(state_file, 'r') as f:
+                return json.load(f)
+        except Exception:
+            return None

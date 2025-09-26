@@ -48,10 +48,20 @@ class OpenOCDRunner(FlashRunner):
     def get_openocd_config(self):
         """Find the appropriate OpenOCD config file"""
         configs = ["openocd.cfg", "openocd-alt.cfg"]
+
+        # First look in project_path (current working directory for platform builds)
         for config in configs:
             config_path = self.project_path / config
             if config_path.exists():
                 return str(config_path)
+
+        # If not found in project path, look in parent directory
+        # (for cases where we might be in a subdirectory)
+        for config in configs:
+            config_path = self.project_path.parent / config
+            if config_path.exists():
+                return str(config_path)
+
         return None
     
     def get_available_binaries(self):
@@ -94,10 +104,23 @@ class OpenOCDRunner(FlashRunner):
             raise RuntimeError(f"Binary {binary} not found in {self.build_dir}")
         
         # Build OpenOCD command
-        cmd = ['openocd', '-f', openocd_config]
+        # Use just the filename if the config is in the same directory we're running from
+        config_path = Path(openocd_config)
+        if config_path.parent == self.project_path:
+            config_arg = config_path.name
+        else:
+            config_arg = openocd_config
+
+        cmd = ['openocd', '-f', config_arg]
         
         # Build OpenOCD script commands
-        commands = [f'program {binary_path}']
+        # Use relative path for binary if we're running from project directory
+        if binary_path.is_relative_to(self.project_path):
+            binary_arg = str(binary_path.relative_to(self.project_path))
+        else:
+            binary_arg = str(binary_path)
+
+        commands = [f'program {binary_arg}']
         if verify:
             commands.append('verify')
         if reset:

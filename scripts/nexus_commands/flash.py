@@ -7,6 +7,7 @@ import sys
 import subprocess
 from pathlib import Path
 from west.commands import WestCommand
+import yaml
 
 # Add the scripts directory to Python path for imports
 script_dir = Path(__file__).parent
@@ -14,6 +15,7 @@ sys.path.insert(0, str(script_dir))
 
 from project_detector import ProjectDetector
 from runners import get_flash_runner, list_available_runners
+from build import BuildCommand
 
 
 class FlashCommand(WestCommand):
@@ -70,12 +72,17 @@ class FlashCommand(WestCommand):
     def do_run(self, args, unknown_args):
         if args.list:
             return self._list_flash_targets()
-        
+
         if args.list_runners:
             return self._list_runners()
-        
+
+        # First try to use saved platform configuration
+        platform_state = BuildCommand.load_current_platform_config()
+        if platform_state and self._can_use_platform_state() and not args.project:
+            return self._flash_with_platform_state(platform_state, args, unknown_args)
+
         workspace_root = ProjectDetector.find_workspace_root()
-        
+
         if args.project:
             return self._flash_specific_project(workspace_root, args.project, args, unknown_args)
         else:
@@ -189,5 +196,31 @@ class FlashCommand(WestCommand):
         if flashable_count == 0:
             self.inf("  No flashable projects found")
             self.inf("  Build projects first to make them flashable")
-        
+
         return 0
+
+    def _can_use_platform_state(self):
+        """Check if we can use the saved platform state"""
+        # Check if platform_builds.yaml exists (indicates this is a multi-platform project)
+        return Path('platform_builds.yaml').exists()
+
+    def _flash_with_platform_state(self, platform_state, args, unknown_args):
+        """Flash using saved platform state from build command"""
+        build_path = Path(platform_state['build_path'])
+        build_system = platform_state['build_system']
+        platform_name = platform_state['current_platform']
+
+        if not build_path.exists():
+            self.err(f"Build path {build_path} doesn't exist. Run 'west build -b {platform_name}' first")
+            return 1
+
+        self.inf(f"Flashing {platform_name} build using {build_system}")
+
+        # Create a fake project object for the platform build directory
+        project = {
+            'name': f"{platform_name}",
+            'path': str(build_path),
+            'type': build_system
+        }
+
+        return self._flash_project(project, args, unknown_args)

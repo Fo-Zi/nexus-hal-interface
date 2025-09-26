@@ -7,12 +7,14 @@ import sys
 import subprocess
 from pathlib import Path
 from west.commands import WestCommand
+import yaml
 
 # Add the scripts directory to Python path for imports
 script_dir = Path(__file__).parent
 sys.path.insert(0, str(script_dir))
 
 from project_detector import ProjectDetector
+from build import BuildCommand
 
 
 class CleanCommand(WestCommand):
@@ -44,8 +46,13 @@ class CleanCommand(WestCommand):
         return parser
     
     def do_run(self, args, unknown_args):
+        # First try to use saved platform configuration
+        platform_state = BuildCommand.load_current_platform_config()
+        if platform_state and self._can_use_platform_state():
+            return self._clean_with_platform_state(platform_state)
+
         workspace_root = ProjectDetector.find_workspace_root()
-        
+
         if args.all:
             return self._clean_all_projects(workspace_root)
         elif args.project:
@@ -110,6 +117,43 @@ class CleanCommand(WestCommand):
                     self.inf(f"Removed {build_dir}")
             elif project_type == "make":
                 subprocess.run(['make', 'clean'], check=False)
-                
+        finally:
+            os.chdir(original_cwd)
+
+    def _can_use_platform_state(self):
+        """Check if we can use the saved platform state"""
+        # Check if platform_builds.yaml exists (indicates this is a multi-platform project)
+        return Path('platform_builds.yaml').exists()
+
+    def _clean_with_platform_state(self, platform_state):
+        """Clean using saved platform state from build command"""
+        build_path = Path(platform_state['build_path'])
+        build_system = platform_state['build_system']
+        platform_name = platform_state['current_platform']
+
+        if not build_path.exists():
+            self.inf(f"Build path {build_path} doesn't exist, nothing to clean")
+            return 0
+
+        self.inf(f"Cleaning {platform_name} build using {build_system}")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(build_path)
+
+            if build_system == "esp-idf":
+                subprocess.run(['idf.py', 'clean'], check=False)
+            elif build_system == "cmake":
+                build_dir = Path('build')
+                if build_dir.exists():
+                    import shutil
+                    shutil.rmtree(build_dir)
+                    self.inf(f"Removed {build_dir}")
+            elif build_system == "make":
+                subprocess.run(['make', 'clean'], check=False)
+
+            self.inf(f"Cleaned {platform_name}")
+            return 0
+
         finally:
             os.chdir(original_cwd)

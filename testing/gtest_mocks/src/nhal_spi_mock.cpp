@@ -35,39 +35,6 @@ extern "C" {
         return NhalSpiMock::instance().nhal_spi_master_write_read(ctx, tx_data, tx_len, rx_data, rx_len);
     }
 
-    // SPI Master Async interface implementations
-    nhal_result_t nhal_spi_master_init_async(struct nhal_spi_context *ctx, const struct nhal_async_config *async_cfg) {
-        return NhalSpiMock::instance().nhal_spi_master_init_async(ctx, async_cfg);
-    }
-
-    nhal_result_t nhal_spi_master_deinit_async(struct nhal_spi_context *ctx) {
-        return NhalSpiMock::instance().nhal_spi_master_deinit_async(ctx);
-    }
-
-    nhal_result_t nhal_spi_master_set_async_callback(struct nhal_spi_context *ctx, nhal_async_complete_cb_t callback) {
-        return NhalSpiMock::instance().nhal_spi_master_set_async_callback(ctx, callback);
-    }
-
-    nhal_result_t nhal_spi_master_disable_async_callback(struct nhal_spi_context *ctx) {
-        return NhalSpiMock::instance().nhal_spi_master_disable_async_callback(ctx);
-    }
-
-    nhal_async_status_t nhal_spi_master_get_async_status(struct nhal_spi_context *ctx) {
-        return NhalSpiMock::instance().nhal_spi_master_get_async_status(ctx);
-    }
-
-    nhal_result_t nhal_spi_master_write_async(struct nhal_spi_context *ctx, const uint8_t *data, size_t len) {
-        return NhalSpiMock::instance().nhal_spi_master_write_async(ctx, data, len);
-    }
-
-    nhal_result_t nhal_spi_master_read_async(struct nhal_spi_context *ctx, uint8_t *data, size_t len) {
-        return NhalSpiMock::instance().nhal_spi_master_read_async(ctx, data, len);
-    }
-
-    nhal_result_t nhal_spi_master_write_read_async(struct nhal_spi_context *ctx, const uint8_t *tx_data, size_t tx_len, uint8_t *rx_data, size_t rx_len) {
-        return NhalSpiMock::instance().nhal_spi_master_write_read_async(ctx, tx_data, tx_len, rx_data, rx_len);
-    }
-
     // SPI Daisy Chain interface implementations
     nhal_result_t nhal_spi_daisy_init(struct nhal_spi_daisy_context *daisy_ctx) {
         return NhalSpiMock::instance().nhal_spi_daisy_init(daisy_ctx);
